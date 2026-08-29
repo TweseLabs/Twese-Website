@@ -1,0 +1,152 @@
+# Twese Inc Recovery Build Checklist
+
+- [x] Review the complete recovery specification and extract all approved page copy, cautions, and placeholders.
+- [x] Inspect the official Twese Clinic and Twese Labs logo files and sample their approved navy, blue, and orange colors.
+- [x] Confirm or recover the project scaffold and document the chosen institutional design direction in `ideas.md`.
+- [x] Use the original logo assets unchanged and place them prominently on their respective Clinic and Labs content.
+- [x] Build Home, Twese Clinic, Twese Labs, Impact, Our Team, and Partner With Us pages with responsive navigation.
+- [x] Use only verified information and clearly label all required placeholders; do not invent claims, metrics, history, team details, or partnerships.
+- [x] Avoid stock photography and substitute unobtrusive, branded layout treatments until real Twese photos are supplied.
+- [x] Verify color fidelity, logo legibility, mobile responsiveness, links, and institutional tone before delivery.
+- [ ] Create a project checkpoint and provide the user with the recovered-site version.
+- [x] Re-align the site colorway to the original screenshots: warm ivory surfaces, true dark navy fields, and restrained orange rules.
+- [x] Replace the current typography system with a compact, high-contrast serif display face and muted practical sans-serif companion.
+- [x] Match the recovered header/navigation, large collaboration rows, and team-directory composition without reintroducing unsupported copy.
+- [x] Verify the screenshot-led visual revision at desktop and mobile sizes before creating a new checkpoint.
+- [x] Catalog and preserve the supplied staff portraits and clinic-operation photographs in managed project storage.
+- [x] Replace team-directory initial blocks with the supplied, person-matched portrait images.
+- [x] Add the supplied clinic action photographs to the recovered full-width image break, quote treatment, and operational image strip.
+- [x] Verify image crops, dark overlays, descriptive alt text, and mobile behavior against the supplied references before checkpointing.
+- [x] Update the confirmed public roster: Coca Ndacayisaba as Co-Founder & Operations Director; three nurses comprising two Evelyn records and Ella Murekerisoni.
+- [x] Restore the Home page to the prior screenshot-matched composition without using the latest staff and clinic photo batch.
+- [x] Restrict this photo batch to the Meet the Team directory, and remove its Home hero, quote, and operational-strip placements.
+- [x] Verify corrected Home and Team pages at desktop and mobile sizes before creating the corrective checkpoint.
+- [x] Catalog the user-shared Twese media folder and preserve selected source images in managed project storage.
+- [x] Create a documented, permission-conscious image placement plan for Home, Clinic, Labs, and Impact.
+- [x] Integrate only mapped folder images into the remaining page layouts with reference-appropriate cropping and overlays.
+- [x] Update the asset manifest and verify every new image at desktop and mobile sizes before delivery.
+- [x] Remove the rejected Home approach image and restore the corresponding non-photo navy treatment.
+- [x] Replace the rejected Home hero image with a different approved wide clinic photograph.
+- [x] Reduce the Home hero heading scale to align more closely with the recovered screenshot reference.
+- [x] Verify the corrected Home page at desktop and mobile sizes before creating a new checkpoint.
+- [x] On the next approved revision, enforce the original-site visual benchmark: near-black midnight navy, plain white surfaces, restrained muted-orange rules, compact editorial serif display copy, narrow neutral sans-serif support text, and controlled whitespace.
+- [x] Implement the confirmed two-level navy system: near-black navy for primary fields and a lighter navy for secondary institutional bands and overlays.
+- [x] Align display, navigation, button, and content typography with the smaller original-site editorial proportions.
+- [x] Remove orange-filled calls to action in favor of navy buttons and retain orange for thin registration rules and small accents.
+- [x] Verify the sitewide visual correction against the user-provided original screenshots before checkpointing.
+- [x] Rework only the Home page into the approved photography → metrics → photography → statement/photo → structured information → CTA rhythm.
+- [x] Add the two approved verified metrics in an extensible lighter-navy strip directly below the Home hero.
+- [x] Restore prominent, non-repetitive approved Twese photographs to the Clinic/Labs split and Our Approach sections.
+- [x] Apply the corrected Home quote, final CTA copy, and remove public placeholder wording from the shared footer.
+- [x] Verify Home content, image crops, text contrast, and responsive behavior before checkpointing the Home-only revision.
+- [x] Rebalance the verified Home metric strip into three equal columns without adding any unverified numerical claim.
+- [x] Review the current Labs feature image for technical suitability and keep it unchanged because the shared folder contains no stronger approved research-related image.
+- [x] Slightly reduce and tighten the Home approach quote while retaining its photographic background, overlay, exact approved copy, and orange rule.
+- [x] Apply the specified humble Labs hero subtext and simplified shared footer statement.
+- [x] Verify the refined Home page remains photography-led, balanced, responsive, and free of placeholders before checkpointing.
+- [x] Compare the live Home page line by line with the detailed user brief and identify every missed or insufficient correction.
+- [x] Replace the Labs image with a stronger approved diagnostics visual found during the shared-media correction audit.
+- [x] Implement all outstanding visual, textual, metric-strip, and quote-scale corrections from the Home brief without changing other pages.
+- [x] Re-verify the fully corrected Home page at desktop and mobile sizes before creating a corrective checkpoint.
+- [x] Reduce Home header, hero, metric, section, CTA, and footer vertical density to the user-specified compact editorial targets without changing any content.
+- [x] Equalize Home Clinic/Labs feature image frames to a 3:2 editorial ratio and refine the approach crop to keep people, not the green doorway, visually primary.
+- [x] Align Home elements to a unified 1360–1440px content system with consistent horizontal gutters and section rhythm.
+- [x] Verify the Home-only spacing, scale, image crops, and responsive behavior before creating a layout-polish checkpoint.
+- [x] Deliver a no-code insertion proposal for the requested Research, Recognition & Partnerships ticker and Recent Work section.
+- [x] Do not modify the Home page until the user explicitly approves the proposed insertion design.
+- [x] Insert the 95–110px desktop Research, Recognition & Partnerships text-only ticker directly after Our Approach.
+- [x] Insert the 280–340px desktop Recent Work record directly after the ticker and before Collaboration, using only the three approved items.
+- [x] Implement slow, seamless ticker movement with hover pause/slow behavior and a reduced-motion static fallback.
+- [x] Capture desktop and mobile screenshots for review without making any additional Home changes or saving a checkpoint.
+- [x] Diagnose the user-reported inability to access the Home route: the public site was serving the prior checkpoint while the requested sections remained only in preview.
+- [x] Confirm direct Home-page access before returning to the pending review of the new research insertions.
+- [x] Provide the verified public Home-page URL and clarify that the new research insertions remain uncheckpointed pending review.
+- [x] Confirm both required research sections are present in the Home-page DOM and located strictly between Our Approach and Collaboration.
+- [x] Confirm all existing Home sections and content outside the two required insertions remain unchanged.
+- [x] Capture desktop and mobile evidence showing Our Approach → Research, Recognition & Partnerships → Recent Work → Collaboration.
+- [ ] Save a checkpoint containing the verified public Home insertion.
+- [x] Audit every current route, approved photograph, visible placeholder, and factual claim against the full-site master redesign brief.
+- [x] Establish a unified two-level navy, orange-accent, editorial-serif/sans, compact-density, and compact-footer system without changing approved logos.
+- [x] Recompose Home as a cinematic institutional overview while retaining all approved Home content and existing research insertion safeguards.
+- [x] Rebuild Impact as evidence-led documentary storytelling using only verified operating facts, priorities, displacement response, and geography.
+- [x] Rebuild Twese Clinic as a compact, human, photography-led care-delivery page without expansion claims or invented service metrics.
+- [x] Rebuild Twese Labs as a distinct technical research page using truthful diagrams or placeholders where approved technical imagery is unavailable.
+- [x] Rebuild Our Team as a portrait-led directory and Partner With Us as a compact institutional collaboration page with the new partnership-principles section.
+- [x] Verify all routes at desktop and mobile sizes, button targets, photo crops, footer density, logo treatment, visible placeholder removal, and content boundaries before publishing.
+- [x] Apply the full master redesign brief across every route, including the specified Home redesign, rather than preserving any superseded page-by-page layout constraint.
+- [x] Preserve every current route, section, word, photograph, logo, fact, button, destination, and navigation label during the global visual polish.
+- [x] Establish a consistent 1280–1360px content grid and normalized serif/sans hierarchy across all routes without replacing the current fonts.
+- [x] Tighten section spacing, dark/light rhythm, existing panel padding, button sizing, header alignment, and footer density without structural changes.
+- [x] Improve only existing photograph crops, aspect ratios, alignment, and scale; do not add, replace, or remove any image.
+- [x] Verify all six routes at desktop and mobile sizes for content preservation, navigation safety, image crops, and horizontal overflow.
+- [x] Present desktop screenshots of Home, Impact, Clinic, Labs, Team, and Partner With Us before making any additional changes.
+- [x] Increase only the Home recognition band to 120–140px desktop height with a 20–24% multiline label column, readable organization names, unclipped marquee loop, orange separators, and 12–13px explanatory note.
+- [x] Increase only the Home Recent Work section to 400–460px desktop height with a 38–44px heading and three 72–88px editorial research rows.
+- [x] Restyle only the Home collaboration section as a 300–340px medium Twese navy/blue two-column closing invitation while preserving its exact copy and button.
+- [x] Preserve every section above Our Approach and all footer content; change only the three approved lower-Home sections.
+- [ ] Capture one full Home desktop screenshot and close-ups of the recognition band, Recent Work, and collaboration/footer transition before any additional changes.
+- [x] Fix only the existing Home ticker edge behavior so complete organization names traverse the usable track without truncation, while retaining its title, note, entries, separators, and seamless motion.
+- [x] Increase ticker-name size and contrast by approximately 10–15% and slow only the existing animation if needed for readability.
+- [x] Replace only the first Recent Work description with the exact approved ISMRM/ISMRI 2026 Cape Town sentence and slightly strengthen all right-column descriptions.
+- [x] Reduce only the existing medium-blue Home collaboration section height by approximately 10–15% without changing its layout, wording, button, colors, or footer transition.
+- [x] Capture and provide one full-page desktop Home screenshot only before any additional changes.
+- [x] Increase only the existing Home recognition strip height by 20–30%, vertically center its fixed-width label column, and keep the ticker track entirely to its right.
+- [x] Increase only ticker-name size, contrast, and spacing while preserving the four approved entries, orange separators, slow seamless motion, note, and restrained styling.
+- [x] Strengthen the edge masking so organization names enter and exit naturally without visible clipping inside the readable viewport.
+- [x] Increase only the smallest footer text by approximately 1px and/or slightly improve its contrast without changing footer layout or content.
+- [x] Capture and provide one full-page desktop Home screenshot only for final approval.
+- [x] Keep the recognition ticker and Recent Work on a coherent white institutional surface while preserving their existing content and section order.
+- [x] Strengthen only the recognition label, moving names, and dividers without changing the approved four-entry sequence or relationship framing.
+- [x] Clarify only the Recent Work Year | Institution / Venue | Description hierarchy and add the approved “View all research & recognition →” link to Twese Labs.
+- [x] Reduce only the dead vertical space between the ticker, Recent Work, and the existing blue collaboration CTA without aggressive compression.
+- [x] Increase only the smallest footer type by approximately 1–2px and slightly improve contrast without changing footer layout.
+- [x] Capture and provide one full-page desktop Home screenshot after implementation.
+- [x] Restore the Home “COLLABORATION & SUPPORT” section with exactly three equal restrained columns for Academic Collaborators, Philanthropic Funders, and Engineering Collaborators using the supplied wording.
+- [x] Replace the Home closing heading and paragraph with the exact stronger collaboration/support invitation while retaining the Partner With Us CTA.
+- [x] Replace brighter secondary-blue content bands with institutional blue `#082754` while preserving intentionally very-dark navy footer and darkest visual areas.
+- [x] Verify the targeted Home collaboration restoration and blue-palette correction without unrelated hierarchy, photography, research, navigation, or footer changes.
+- [x] Replace only the Home Our Approach quotation with the exact user-supplied sentence.
+- [x] Verify the photograph, overlay, orange rule, typography, position, width, sizing, spacing, section height, and all other Home content remain unchanged.
+- [x] Replace only the Home ticker entries with the four approved full organization/conference names, using no unexplained acronym alone.
+- [x] Preserve the existing recognition label, supporting line, section framing, restrained colors, orange separators, and slow continuous motion.
+- [x] Keep the ticker as a single balanced institutional row with no fabricated logos, cards, badges, sponsor-wall styling, or unrelated Home changes.
+- [x] Capture and provide a fresh full-page desktop Home screenshot after the ticker-only update.
+- [x] Apply only subtle alternating warm off-white and blue-gray background bands from the recognition area downward without changing any content, layout, typography, ticker, imagery, CTA, or footer.
+- [x] Give the Collaboration & Support records intentional depth by keeping their white surfaces inside a faint tinted section with restrained dividers and no gradients, textures, shadows, or new cards.
+- [x] Preserve the existing #082754 collaboration CTA as the strong lower-page anchor and maintain the current footer transition.
+- [x] Capture and provide a fresh full-page desktop Home screenshot after the lower-background-only refinement.
+- [x] Convert only the existing Home recognition rail to the site’s deep navy with white/monochrome full-name entries, preserving its label, approved organizations, supporting line, and restrained continuous motion.
+- [x] Change only the existing Recent Work background to warm stone `#F4F1EB` and reduce its oversized blank space while retaining the editorial record layout and content.
+- [x] Rebuild only the existing Collaboration & Support presentation as a medium Twese blue field (`#173F70`–`#1D477A`) with the approved heading, support line, and three white square-edged records.
+- [x] Transition the existing final collaboration CTA into the site’s deepest navy and reduce lower-section blank space by approximately 25–35% without changing sections above the recognition rail.
+- [x] Capture and provide one full-page desktop Home screenshot before any additional changes.
+- [x] Select an existing approved Twese humanitarian or field-collaboration image for the Home Collaboration & Support background without changing any other section imagery.
+- [x] Replace only the solid Collaboration & Support field with the full-width approved photograph, cover crop, and deep navy `rgba(2, 17, 42, 0.68–0.76)` overlay.
+- [x] Preserve the exact Collaboration & Support label, heading, intro, and three category texts while presenting the categories as restrained translucent light panels with dark navy text and orange numbering.
+- [x] Verify only the revised Collaboration & Support section and capture a section-only desktop screenshot.
+- [x] Preserve the current approved Home design apart from minor non-structural consistency corrections.
+- [x] Apply exact secondary blue `#082754` to all non-Home medium-blue content bands, referral/integration sections, and major CTA bands while preserving deepest navy footer and hero fields.
+- [x] Refine Impact and Clinic into editorial documentary pages using only their current verified content, with intentional distinct photograph placement and no expansion or partnership claims.
+- [x] Refine Labs into an emerging academic/engineering research page with qualified 0.2 Tesla, cost, power, and site design goals; qualitative development status; and cleaner documented outputs.
+- [x] Add verified modest leadership bios; fix clinical-team names only from existing approved assets/data; and prevent repetitive team or clinic photographs.
+- [x] Consolidate Partner With Us to Purpose → Ways to collaborate → Partnership principles → Contact, and omit unverified direct-email placeholder text.
+- [x] Remove all remaining public internal-development, contact, missing-image, debug, and draft placeholder text without inventing facts.
+- [x] Review every route at desktop and mobile widths for visual cohesion, image reuse, exact blue consistency, and obvious layout breaks before checkpointing.
+- [x] Reapply the final copy and pale-blue color-rhythm correction pass after the sandbox reset while preserving the approved Home design and all existing imagery.
+- [x] Apply `rgba(8, 39, 84, 0.055)` interior-page washes and `rgba(8, 39, 84, 0.12)` rules in a controlled warm/wash/warm sequence.
+- [x] Rebuild Impact and Twese Labs hierarchy and copy; tighten Clinic and Partner language; and leave Team content unchanged apart from surface rhythm.
+- [x] Verify exact approved wording, desktop/mobile layout, and production build, then checkpoint the recovered correction pass.
+- [x] Preserve the approved Home and Twese Clinic structure, photography, and copy while repairing only Impact, Labs, Team, and Partner visual composition.
+- [x] Map and use only distinct approved Twese images for the Impact geography, Labs introduction and collaboration, Team hero, and Partner hero, introduction, and contact compositions.
+- [x] Reshape Impact into a dark-hero → weighted metric dashboard → image/blue clinical split → #082754 priorities → field-response image → visual geography → #082754 CTA rhythm.
+- [x] Reshape Labs into an image-led introduction, #082754 AccessMR technical field, connected status roadmap, compact pale-blue outputs, and photo-backed collaboration cards.
+- [x] Add a documentary Team hero, pale-blue clinical-team record, #082754 research-and-development section, and compact equal founder cards without changing names or bios.
+- [x] Add Partner documentary compositions, numbered pale-blue collaboration cards, #082754 principles band, and high-contrast image-paired contact area without altering approved copy.
+- [x] Inspect all four revised pages at desktop width and verify clear alternation among photography, #082754, warm ivory, and deep navy before checkpointing.
+- [x] Preserve Home, navigation, the current visual system, existing imagery, and the current staff photographs while applying only the specified editorial correction pass.
+- [x] Replace Impact hero, system-of-care section, field-response language, and location model with the exact approved health-system framing; remove generic operating priorities.
+- [x] Replace Twese Clinic hero, introduction, clinical-services note, community-health copy, and referral wording with the exact approved local-capacity and continuity language.
+- [x] Replace Twese Labs hero and bridge framing; correct the AccessMR system-cost design target to under $15,000; replace status badges with six technical workstreams; and expand all research-output names.
+- [x] Replace Labs research-collaboration language with the three approved categories and reinforce the clinic-to-lab intellectual architecture.
+- [x] Replace the three confirmed Team leadership bios with the exact approved roles and descriptions; search existing data for Eppy only and do not add an unsupported record.
+- [x] Verify all altered sentences against the user brief, remove generic NGO, startup, grant-application, and referral-network language, and run a production build before checkpointing.

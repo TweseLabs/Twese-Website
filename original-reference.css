@@ -1,0 +1,62 @@
+/**
+ * Original-site fidelity layer: near-black navy primary fields, lighter navy secondary bands,
+ * compact Lora display type, quiet DM Sans support text, white evidence surfaces, and fine orange rules.
+ */
+:root {
+  --twese-deep-navy: #020b20;
+  --twese-navy: #12345e;
+  --twese-blue: #12345e;
+  --twese-orange: #bd7447;
+  --paper: #fff;
+  --ivory: #fbfaf8;
+  --ink: #15181d;
+  --muted: #737984;
+  --line: #ece9e4;
+  --pale: #f6f5f2;
+  --serif: "Lora", Georgia, serif;
+  --sans: "DM Sans", Arial, sans-serif;
+}
+
+h1, h2, h3 { font-weight: 500; line-height: 1.1; letter-spacing: -.035em; }
+.site-header { background: rgba(255, 255, 255, .99); }
+.header-logo { width: 122px; height: 43px; }
+.site-nav__link { color: #252a34; font-family: var(--serif); font-size: .82rem; font-weight: 500; }
+.site-nav__link:hover, .site-nav__link--active { color: var(--twese-deep-navy); }
+.site-nav__link--active:after { background: var(--twese-orange); }
+.nav-cta { background: var(--twese-navy); font-family: var(--serif); font-size: .8rem; font-weight: 500; letter-spacing: 0; }
+.nav-cta:hover { background: var(--twese-deep-navy); }
+.menu-button { color: var(--twese-deep-navy); }
+.section-heading__rule { background: var(--twese-orange); }
+.button--orange, .button--navy { background: var(--twese-navy); }
+.button--orange:hover, .button--navy:hover { background: var(--twese-deep-navy); }
+.button--outline-navy { color: var(--twese-navy); }
+
+.home-hero { background: var(--twese-deep-navy); }
+.home-hero__grid { grid-template-columns: minmax(0, 1fr); gap: 0; }
+.home-hero__copy { max-width: 610px; }
+.home-hero h1, .home-hero--shared-media h1 { font-size: clamp(3.1rem, 4.2vw, 4.75rem); line-height: 1.08; }
+.home-hero h1 span { color: #d58c62; }
+.home-hero__logos { justify-content: flex-start; }
+.home-hero--shared-media { background-position: center 50%; }
+.home-hero--shared-media::before { background: linear-gradient(90deg, rgba(2, 11, 32, .9) 0%, rgba(2, 11, 32, .74) 48%, rgba(2, 11, 32, .35) 100%); }
+.home-hero--shared-media::after { background: linear-gradient(90deg, rgba(2,11,32,.18), transparent 70%); }
+
+.division-panel h2 { font-size: clamp(1.95rem, 2.45vw, 2.7rem); }
+.principle-band { background: var(--twese-deep-navy); }
+.principle-band blockquote { font-size: clamp(1.75rem, 2.55vw, 2.65rem); line-height: 1.35; }
+.section-heading h2 { font-size: clamp(2.25rem, 3.2vw, 3.45rem); }
+.partnership-cards article > p, .research-list__year, .priorities-section li span, .service-list span, .scope-columns span, .partner-areas__grid article > p:first-child { color: rgba(189, 116, 71, .78); }
+.contact-band, .geography-band, .development-note, .technical-card { background: var(--twese-navy); }
+.contact-band h2 { font-size: clamp(2.3rem, 3.25vw, 3.6rem); line-height: 1.1; }
+.page-hero { background: var(--twese-deep-navy); }
+.page-hero h1 { font-size: clamp(2.9rem, 4.15vw, 4.6rem); line-height: 1.1; }
+.page-hero__marker, .research-list__year { color: rgba(189, 116, 71, .84); }
+.field-section__content h2, .conflict-section h2, .site-focus h2, .geography-band h2 { font-size: clamp(2.2rem, 3.2vw, 3.55rem); }
+.site-footer { background: var(--twese-deep-navy); }
+.footer-label, .member-row__role, .partner-records span { color: rgba(210, 145, 106, .9); }
+
+@media (max-width: 760px) {
+  .home-hero h1, .home-hero--shared-media h1 { font-size: clamp(2.8rem, 11.5vw, 3.6rem); }
+  .page-hero h1 { font-size: clamp(2.75rem, 11.5vw, 3.6rem); }
+  .contact-band h2 { font-size: 2.5rem; }
+}

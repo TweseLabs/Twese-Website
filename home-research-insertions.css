@@ -1,0 +1,32 @@
+/**
+ * Home-only research insertions: a quiet text-first ticker and compact academic record.
+ * Preserves the approved paper/navy/orange visual system and avoids sponsor-wall aesthetics.
+ */
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+.research-ticker { height: 106px; overflow: hidden; border-bottom: 1px solid var(--line); background: #fff; }
+.research-ticker__grid { display: grid; grid-template-columns: 248px minmax(0, 1fr); grid-template-rows: 46px 27px; column-gap: 34px; align-content: center; height: 100%; }
+.research-ticker__label { grid-row: 1 / span 2; align-self: center; color: #606978; font-size: .59rem; font-weight: 700; letter-spacing: .105em; line-height: 1.42; text-transform: uppercase; }
+.research-ticker__label span { display: inline-block; width: 24px; height: 1px; margin: 0 10px 3px 0; background: var(--twese-orange); }
+.research-ticker__viewport { grid-column: 2; min-width: 0; overflow: hidden; outline-offset: 4px; }
+.research-ticker__track { display: flex; width: max-content; align-items: center; animation: research-ticker-left 42s linear infinite; will-change: transform; }
+.research-ticker__viewport:hover .research-ticker__track, .research-ticker__viewport:focus .research-ticker__track { animation-play-state: paused; }
+.research-ticker__track span { display: inline-flex; align-items: center; flex: 0 0 auto; color: #445063; font-family: var(--sans); font-size: .85rem; font-weight: 500; letter-spacing: .01em; white-space: nowrap; }
+.research-ticker__track i { display: inline-block; width: 3px; height: 3px; margin: 0 32px; border-radius: 50%; background: rgba(189,116,71,.72); }
+.research-ticker__note { grid-column: 2; align-self: end; color: #848b95; font-size: .68rem; line-height: 1.4; }
+@keyframes research-ticker-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+.recent-work { min-height: 304px; padding: 52px 0 48px; background: var(--ivory); border-bottom: 1px solid var(--line); }
+.recent-work__grid { display: grid; grid-template-columns: minmax(190px, .48fr) minmax(0, 1fr); gap: clamp(48px, 7.5vw, 118px); align-items: center; }
+.recent-work__intro .eyebrow { margin-bottom: 14px; }
+.recent-work__intro h2 { font-size: clamp(2.1rem, 3vw, 3.05rem); }
+.recent-work__link { display: inline-flex; align-items: center; gap: 8px; margin-top: 21px; color: var(--twese-navy); font-size: .78rem; font-weight: 600; }
+.recent-work__link:hover { color: var(--twese-deep-navy); text-decoration: underline; text-underline-offset: 4px; }
+.recent-work__records { border-top: 1px solid var(--line); }
+.recent-work__records article { display: grid; grid-template-columns: 58px minmax(160px, .92fr) minmax(220px, 1.25fr); gap: 18px; align-items: center; min-height: 57px; border-bottom: 1px solid var(--line); }
+.recent-work__records article > p { color: rgba(189,116,71,.85); font-family: monospace; font-size: .67rem; letter-spacing: .04em; }
+.recent-work__records h3 { font-family: var(--sans); font-size: .77rem; font-weight: 600; letter-spacing: 0; line-height: 1.35; }
+.recent-work__records span { color: var(--muted); font-size: .78rem; line-height: 1.42; }
+@media (prefers-reduced-motion: reduce) { .research-ticker__track { animation: none; transform: none; } }
+@media (max-width: 760px) {
+  .research-ticker { height: auto; min-height: 147px; }.research-ticker__grid { display: grid; grid-template-columns: 1fr; grid-template-rows: auto 39px auto; gap: 8px; padding-top: 23px; padding-bottom: 21px; }.research-ticker__label { grid-row: auto; }.research-ticker__viewport, .research-ticker__note { grid-column: auto; }.research-ticker__track span { font-size: .76rem; }.research-ticker__track i { margin: 0 23px; }.research-ticker__note { font-size: .65rem; }
+  .recent-work { min-height: 0; padding: 62px 0 66px; }.recent-work__grid { grid-template-columns: 1fr; gap: 29px; }.recent-work__records article { grid-template-columns: 50px 1fr; gap: 6px 15px; padding: 15px 0; }.recent-work__records span { grid-column: 2; }.recent-work__intro h2 { font-size: 2.35rem; }
+}

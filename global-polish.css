@@ -1,0 +1,416 @@
+/**
+ * Global visual-only polish — field-based healthcare institution with academic medical discipline.
+ * This layer changes spacing, scale, alignment, crop, and proportions only; content and structure remain untouched.
+ */
+:root {
+  --polish-content: 1344px;
+  --polish-gutter: clamp(24px, 3.2vw, 48px);
+  --polish-body: 17px;
+}
+
+html { scroll-padding-top: 90px; }
+body { font-size: var(--polish-body); line-height: 1.62; }
+.container {
+  width: 100%;
+  max-width: var(--polish-content);
+  padding-left: var(--polish-gutter);
+  padding-right: var(--polish-gutter);
+}
+
+/* Style reminder — shared institutional frame: an unaltered division mark plus a quiet TWESE INC stamp; orange stays a fine registration accent. */
+.site-header__bar { min-height: 88px; }
+.header-logo { display: flex; align-items: center; width: auto; height: 50px; gap: 11px; overflow: visible; }
+.header-logo > img { width: 148px; height: 50px; flex: 0 0 auto; }
+.header-logo__umbrella { display: inline-flex; align-items: center; gap: 5px; color: var(--twese-deep-navy); font-family: var(--sans); font-size: 9px; font-weight: 700; letter-spacing: .14em; line-height: 1; white-space: nowrap; }
+.header-logo__umbrella i { width: 4px; height: 4px; background: var(--twese-orange); }
+.site-nav { gap: clamp(22px, 2.2vw, 34px); }
+.site-nav__link {
+  padding: 34px 0 31px;
+  font-size: 13px;
+  letter-spacing: .005em;
+}
+.site-nav__link::after { height: 2px; background: var(--twese-orange); }
+.nav-cta,
+.button {
+  min-height: 44px;
+  padding: 12px 20px;
+  border-radius: 0;
+  font-size: 13px;
+  line-height: 1.2;
+  letter-spacing: .005em;
+  transition: background-color 180ms cubic-bezier(.23,1,.32,1), color 180ms cubic-bezier(.23,1,.32,1), border-color 180ms cubic-bezier(.23,1,.32,1), transform 140ms cubic-bezier(.23,1,.32,1);
+}
+.nav-cta:active,
+.button:active { transform: scale(.98); }
+
+/* Type proportions: expressive only when hierarchy demands it. */
+.home-hero h1,
+.page-hero h1,
+.clinic-hero h1,
+.labs-hero h1,
+.team-hero h1 { font-size: clamp(64px, 5.1vw, 76px); line-height: 1.02; letter-spacing: -.04em; }
+.section-heading h2,
+.routine-care h2,
+.impact-priorities h2,
+.impact-geography h2,
+.clinic-services__heading h2,
+.clinic-community h2,
+.clinic-focus h2,
+.accessmr-research h2,
+.labs-development h2,
+.labs-outputs h2,
+.team-section-heading h2,
+.partner-intro h2,
+.partner-contact h2 { font-size: clamp(44px, 3.8vw, 56px); line-height: 1.08; }
+.home-collab-cta h2,
+.contact-band h2,
+.impact-end h2,
+.clinic-end h2,
+.labs-end h2,
+.team-end h2 { font-size: clamp(38px, 3.35vw, 50px); line-height: 1.1; }
+.division-feature h2,
+.clinic-development h2,
+.partner-pathways__grid h3,
+.partner-principles__grid h3 { line-height: 1.16; }
+.eyebrow,
+.page-kicker,
+.status-badge { font-size: 12px; }
+
+/* Normalize public-reading copy while preserving labels and technical metadata. */
+.home-hero__copy > p:not(.eyebrow),
+.page-hero__intro,
+.clinic-hero__content > p:not(.eyebrow),
+.labs-hero__grid > div > p:not(.eyebrow),
+.division-feature p,
+.home-collab-cta__grid > div:last-child > p,
+.routine-care p:not(.page-kicker),
+.impact-priorities > p,
+.conflict-story p:not(.eyebrow),
+.impact-geography p:not(.page-kicker),
+.clinic-services__heading > p,
+.clinic-community p:not(.page-kicker),
+.clinic-development p:not(.status-badge),
+.clinic-focus p:not(.page-kicker),
+.labs-overview__grid > div:last-child > p,
+.accessmr-research__grid > div:first-child > p:not(.page-kicker),
+.team-hero .container > p:last-child,
+.team-section-heading > p,
+.partner-intro .container > p:last-child,
+.partner-contact__grid > div > p:not(.page-kicker):not(.partner-contact__placeholder) {
+  font-size: 17px;
+  line-height: 1.68;
+}
+
+/* Shared vertical rhythm: content-driven, compact, and consistent. */
+.section-pad { padding-top: 82px; padding-bottom: 82px; }
+.page-hero__grid { padding-top: 66px; padding-bottom: 64px; }
+.home-divisions { padding-top: 86px; padding-bottom: 90px; }
+.collaboration-section { padding-top: 84px; padding-bottom: 88px; }
+.home-contact-band { min-height: 0; padding-top: 68px; padding-bottom: 68px; }
+.impact-facts { padding-top: 50px; padding-bottom: 50px; }
+.routine-care,
+.impact-priorities,
+.clinic-introduction,
+.clinic-community,
+.clinic-focus,
+.labs-overview,
+.accessmr-research,
+.labs-development,
+.labs-outputs,
+.team-leadership,
+.team-clinical,
+.team-research,
+.partner-intro,
+.partner-principles,
+.partner-contact { padding-top: 82px; padding-bottom: 82px; }
+.partner-pathways,
+.labs-collaboration { padding-top: 64px; padding-bottom: 72px; }
+.contact-band,
+.contact-band--compact,
+.impact-end,
+.clinic-end,
+.labs-end,
+.team-end { padding-top: 58px; padding-bottom: 58px; }
+
+/* Existing photography: stronger rectangular crops and deliberate alignment, no new media. */
+.division-feature figure { aspect-ratio: 3 / 2; }
+.division-feature:first-child figure img { object-position: center 40%; }
+.division-feature:last-child figure img { object-position: center 36%; }
+.home-approach { min-height: 360px; background-position: center 42%; }
+.routine-care figure,
+.clinic-community figure { aspect-ratio: 4 / 3; }
+.conflict-story { min-height: 430px; background-position: center 46%; }
+.clinic-hero { min-height: 450px; background-position: center 48%; }
+.clinic-introduction figure { aspect-ratio: 4 / 3; }
+.clinic-focus__photos { gap: 16px; }
+.team-clinical__image { height: 320px; margin-bottom: 48px; }
+.team-clinical__image img { object-position: center 42%; }
+
+/* Existing panels read as integrated records rather than floating boxes. */
+.partnership-cards article,
+.research-specs,
+.technical-visual,
+.team-lead,
+.partner-contact__placeholder,
+.ethics-note { border-radius: 0; box-shadow: none; }
+.collaboration-section .partnership-cards article { min-height: 0; padding: 22px 24px; }
+.clinic-services__grid article,
+.labs-collaboration__grid article,
+.partner-pathways__grid article,
+.partner-principles__grid article { min-height: 0; }
+.team-lead > div:last-child { min-height: 0; padding: 20px 22px 24px; }
+.team-staff { min-height: 104px; }
+
+/* Dark/light transitions and footer consolidation. */
+.home-metrics article { min-height: 114px; }
+.clinic-development { padding-top: 54px; padding-bottom: 54px; }
+.site-footer__top { gap: clamp(56px, 8vw, 100px); padding-top: 34px; padding-bottom: 28px; }
+.site-footer__statement { margin-top: 9px; }
+.site-footer__brandline { padding-top: 9px; padding-bottom: 9px; }
+.site-footer__logos { padding-top: 9px; padding-bottom: 12px; }
+body:has(.home-hero) .site-footer__top { padding-top: 34px; padding-bottom: 28px; }
+body:has(.home-hero) .site-footer__brandline { padding-top: 9px; padding-bottom: 9px; }
+body:has(.home-hero) .site-footer__logos { padding-top: 9px; padding-bottom: 12px; }
+
+@media (max-width: 900px) {
+  :root { --polish-gutter: 24px; }
+  .site-header__bar { min-height: 78px; }
+  .header-logo { height: 46px; gap: 10px; }
+  .header-logo > img { width: 140px; height: 46px; }
+  .home-hero h1,
+  .page-hero h1,
+  .clinic-hero h1,
+  .labs-hero h1,
+  .team-hero h1 { font-size: clamp(50px, 8vw, 66px); }
+}
+
+@media (max-width: 760px) {
+  :root { --polish-gutter: 20px; }
+  body { font-size: 16px; }
+  html { scroll-padding-top: 66px; }
+  .site-header__bar { min-height: 64px; }
+  .header-logo { height: 40px; gap: 8px; }
+  .header-logo > img { width: 126px; height: 40px; }
+  .header-logo__umbrella { font-size: 8px; letter-spacing: .12em; }
+  .home-hero h1,
+  .page-hero h1,
+  .clinic-hero h1,
+  .labs-hero h1,
+  .team-hero h1 { font-size: clamp(43px, 12vw, 55px); line-height: 1.04; }
+  .section-heading h2,
+  .routine-care h2,
+  .impact-priorities h2,
+  .impact-geography h2,
+  .clinic-services__heading h2,
+  .clinic-community h2,
+  .clinic-focus h2,
+  .accessmr-research h2,
+  .labs-development h2,
+  .labs-outputs h2,
+  .team-section-heading h2,
+  .partner-intro h2,
+  .partner-contact h2 { font-size: clamp(34px, 9.5vw, 44px); }
+  .home-hero__copy > p:not(.eyebrow),
+  .page-hero__intro,
+  .clinic-hero__content > p:not(.eyebrow),
+  .labs-hero__grid > div > p:not(.eyebrow),
+  .division-feature p,
+  .home-collab-cta__grid > div:last-child > p,
+  .routine-care p:not(.page-kicker),
+  .impact-priorities > p,
+  .conflict-story p:not(.eyebrow),
+  .impact-geography p:not(.page-kicker),
+  .clinic-services__heading > p,
+  .clinic-community p:not(.page-kicker),
+  .clinic-development p:not(.status-badge),
+  .clinic-focus p:not(.page-kicker),
+  .labs-overview__grid > div:last-child > p,
+  .accessmr-research__grid > div:first-child > p:not(.page-kicker),
+  .team-hero .container > p:last-child,
+  .team-section-heading > p,
+  .partner-intro .container > p:last-child,
+  .partner-contact__grid > div > p:not(.page-kicker):not(.partner-contact__placeholder) { font-size: 16px; }
+  .section-pad,
+  .routine-care,
+  .impact-priorities,
+  .clinic-introduction,
+  .clinic-community,
+  .clinic-focus,
+  .labs-overview,
+  .accessmr-research,
+  .labs-development,
+  .labs-outputs,
+  .team-leadership,
+  .team-clinical,
+  .team-research,
+  .partner-intro,
+  .partner-principles,
+  .partner-contact { padding-top: 58px; padding-bottom: 58px; }
+  .home-divisions,
+  .collaboration-section { padding-top: 64px; padding-bottom: 66px; }
+  .home-contact-band,
+  .contact-band,
+  .contact-band--compact,
+  .impact-end,
+  .clinic-end,
+  .labs-end,
+  .team-end { padding-top: 50px; padding-bottom: 50px; }
+  .home-approach { min-height: 310px; background-position: 54% center; }
+  .conflict-story { min-height: 350px; background-position: 57% center; }
+  .clinic-hero { min-height: 350px; background-position: center; }
+  .team-clinical__image { height: 245px; margin-bottom: 34px; }
+  .site-footer__top { padding-top: 28px; padding-bottom: 24px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-cta,
+  .button { transition:none; }
+}
+
+/* Lower-Home correction only: recognition, research record, and closing invitation. */
+.research-ticker {
+  height: 164px;
+  border-top: 1px solid rgba(255,255,255,.14);
+  border-bottom: 1px solid rgba(255,255,255,.14);
+  background: var(--twese-deep-navy);
+}
+.research-ticker__grid {
+  grid-template-columns: 290px minmax(0, 1fr);
+  grid-template-rows: 66px 38px;
+  column-gap: clamp(38px, 4vw, 60px);
+}
+.research-ticker__label {
+  align-self: center;
+  font-size: 13.25px;
+  line-height: 1.45;
+  letter-spacing: .1em;
+  color: #f5f7fa;
+}
+.research-ticker__label > span { background: var(--twese-orange); }
+.research-ticker__viewport {
+  padding-inline: 96px;
+  -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 96px, #000 calc(100% - 96px), transparent 100%);
+  mask-image: linear-gradient(90deg, transparent 0, #000 96px, #000 calc(100% - 96px), transparent 100%);
+}
+.research-ticker__track { animation-duration: 62s; }
+.research-ticker__track span {
+  color: #f7f9fc;
+  font-size: 18px;
+  font-weight: 500;
+  letter-spacing: .01em;
+  white-space: nowrap;
+}
+.research-ticker__track i {
+  width: 4px;
+  height: 4px;
+  margin-inline: 68px;
+  background: rgba(189,116,71,.82);
+}
+.research-ticker__note {
+  color: #b9c6d5;
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+
+.recent-work {
+  min-height: 338px;
+  box-sizing: border-box;
+  padding-top: 46px;
+  padding-bottom: 44px;
+  background: #f4f1eb;
+}
+.recent-work__grid {
+  grid-template-columns: minmax(230px, .46fr) minmax(0, 1fr);
+  gap: clamp(64px, 8vw, 126px);
+}
+.recent-work__intro h2 { font-size: clamp(38px, 3.15vw, 44px); }
+.recent-work__link { margin-top: 24px; font-size: 13px; }
+.recent-work__records article {
+  grid-template-columns: 72px minmax(220px, .96fr) minmax(280px, 1.25fr);
+  min-height: 82px;
+  gap: 32px;
+}
+.recent-work__records article > p { font-size: 13px; }
+.recent-work__records h3 { font-size: 16px; font-weight: 600; }
+.recent-work__records span { color: #6b737d; font-size: 15.5px; line-height: 1.5; }
+
+.home-collab-cta {
+  min-height: 282px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 56px 0;
+  border-top: 0;
+  background: var(--twese-deep-navy);
+  color: #fff;
+}
+.home-collab-cta > .container { width: 100%; }
+.home-collab-cta__grid {
+  grid-template-columns: minmax(0, 1fr) minmax(360px, .82fr);
+  align-items: center;
+  gap: clamp(64px, 10vw, 150px);
+}
+.home-collab-cta .page-kicker { color: #c8d5e1; }
+.home-collab-cta h2 { color: #fff; }
+.home-collab-cta__grid > div:last-child > p { color: #c8d5e1; }
+.home-collab-cta .button--navy {
+  border-color: var(--twese-deep-navy);
+  background: var(--twese-deep-navy);
+  color: #fff;
+}
+.home-collab-cta .button--navy:hover { border-color: #fff; background: #fff; color: var(--twese-deep-navy); }
+
+/* Restored Home collaboration specificity: restrained institutional records within a confident Twese field. */
+.home-metrics { background: #082754; }
+.home-divisions .button--navy { border-color: #082754; background: #082754; }
+.home-collaboration-support {
+  min-height: 620px;
+  padding-top: 82px;
+  padding-bottom: 86px;
+  background-image: linear-gradient(rgba(2,17,42,.72), rgba(2,17,42,.72)), url("/manus-storage/impact-conflict-response_d165d66c.jpg");
+  background-size: cover;
+  background-position: center 48%;
+  border-top: 1px solid rgba(255,255,255,.14);
+  border-bottom: 0;
+  color: #fff;
+}
+.home-collaboration-support__intro { display: grid; grid-template-columns: minmax(220px,.42fr) minmax(0,1fr); align-items: end; gap: clamp(56px,8vw,120px); margin-bottom: 36px; }
+.home-collaboration-support__intro .page-kicker { color: #d6e0eb; }
+.home-collaboration-support__intro h2 { margin: 0; color: #fff; font-size: clamp(38px,3.15vw,46px); line-height: 1.08; }
+.home-collaboration-support__intro > div > p { max-width: 690px; margin: 14px 0 0; color: #d3deea; font-size: 16px; line-height: 1.6; }
+.home-collaboration-support__grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 0; background: transparent; gap: 14px; }
+.home-collaboration-support__grid article { min-height: 218px; padding: 30px 28px 32px; border: 1px solid rgba(255,255,255,.52); background: rgba(248,250,252,.91); backdrop-filter: blur(3px); }
+.home-collaboration-support__grid article + article { border-left: 1px solid var(--line); }
+.home-collaboration-support__grid article > p:first-child { color: var(--twese-orange); font-family: monospace; font-size: 12px; letter-spacing: .06em; }
+.home-collaboration-support__grid h3 { margin: 22px 0 13px; color: #082754; font-family: var(--serif); font-size: clamp(25px, 1.95vw, 30px); font-weight: 500; line-height: 1.15; }
+.home-collaboration-support__grid article > p:last-child { color: var(--muted); font-size: 16px; line-height: 1.62; }
+.home-collab-cta h2 { max-width: 620px; }
+.home-collab-cta .button--navy { border-color: var(--twese-deep-navy); background: var(--twese-deep-navy); }
+
+/* Footer legibility only: preserve composition while lifting the smallest type. */
+.site-footer__links a { color: #d2dbe5; font-size: .88rem; }
+.site-footer .footer-label { color: #e6a989; font-size: .75rem; }
+.site-footer__brandline { color: #b6c2d0; font-size: .78rem; }
+
+@media (max-width: 760px) {
+  .research-ticker { height: auto; min-height: 174px; }
+  .research-ticker__grid { grid-template-columns: 1fr; grid-template-rows: auto 44px auto; gap: 10px; padding-top: 26px; padding-bottom: 24px; }
+  .research-ticker__viewport { padding-inline: 42px; -webkit-mask-image: linear-gradient(90deg, transparent 0, #000 42px, #000 calc(100% - 42px), transparent 100%); mask-image: linear-gradient(90deg, transparent 0, #000 42px, #000 calc(100% - 42px), transparent 100%); }
+  .research-ticker__label { font-size: 12px; }
+  .research-ticker__track span { font-size: 15px; }
+  .research-ticker__track i { margin-inline: 28px; }
+  .research-ticker__note { font-size: 12px; }
+  .recent-work { min-height: 0; padding-top: 58px; padding-bottom: 62px; }
+  .recent-work__grid { grid-template-columns: 1fr; gap: 34px; }
+  .recent-work__intro h2 { font-size: 38px; }
+  .recent-work__records article { grid-template-columns: 54px 1fr; gap: 7px 16px; min-height: 0; padding: 20px 0; }
+  .recent-work__records span { grid-column: 2; font-size: 15px; }
+  .recent-work__records h3 { font-size: 15px; }
+  .home-collab-cta { min-height: 0; padding-top: 58px; padding-bottom: 58px; }
+  .home-collab-cta__grid { grid-template-columns: 1fr; gap: 28px; }
+  .home-collaboration-support { min-height: 0; padding-top: 58px; padding-bottom: 60px; background-position: 58% center; }
+  .home-collaboration-support__intro { grid-template-columns: 1fr; gap: 22px; margin-bottom: 28px; }
+  .home-collaboration-support__grid { grid-template-columns: 1fr; }
+  .home-collaboration-support__grid article { min-height: 0; padding: 28px 24px 30px; }
+  .home-collaboration-support__grid article + article { border-top: 0; border-left: 1px solid rgba(8,39,84,.15); }
+}

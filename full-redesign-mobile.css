@@ -1,0 +1,9 @@
+/**
+ * Full Twese redesign mobile layer: preserves the desktop visual hierarchy by converting portrait,
+ * research, care, and partnership structures into readable sequential records on narrow screens.
+ */
+@media (max-width: 760px) {
+  .team-hero { padding:55px 0 44px; }.team-hero h1 { font-size:clamp(2.65rem,11vw,3.55rem); }
+  .team-leadership,.team-clinical,.team-research { padding:56px 0; }.team-section-heading { align-items:start; flex-direction:column; gap:11px; margin-bottom:24px; }.team-leadership__grid { grid-template-columns:1fr; }.team-lead>img,.team-lead>.team-initials { aspect-ratio:4 / 3; }.team-lead>div:last-child { min-height:0; }.team-clinical__image { height:205px; margin-bottom:36px; }.team-staff__grid { grid-template-columns:1fr; }.team-staff { padding:15px 0; }.team-staff:nth-child(3n+2),.team-staff:nth-child(3n+3) { padding-left:0; border-left:0; }.team-research__grid { grid-template-columns:1fr; gap:0; }.team-end { padding:47px 0; }.team-end__grid { align-items:start; flex-direction:column; gap:20px; }
+  .partner-intro { padding:55px 0 36px; }.partner-intro h2 { font-size:clamp(2.35rem,10vw,3.25rem); }.partner-pathways { padding:38px 0 52px; }.partner-pathways__grid { grid-template-columns:1fr; }.partner-pathways__grid article { min-height:0; padding:17px 0; }.partner-pathways__grid article:nth-child(even) { padding-left:0; border-top:1px solid var(--line); border-left:0; }.partner-principles { padding:54px 0; }.partner-principles__grid { grid-template-columns:1fr; }.partner-principles__grid article { min-height:0; padding:17px 0; }.partner-principles__grid article+article { padding-left:0; border-top:1px solid var(--line); border-left:0; }.partner-contact { padding:55px 0; }.partner-contact__grid { grid-template-columns:1fr; gap:30px; }
+}

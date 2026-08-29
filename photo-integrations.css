@@ -1,0 +1,23 @@
+/**
+ * Shared Drive photo treatment: navy overlays preserve hero legibility; documentary figures preserve each original image.
+ * Twese Labs intentionally receives no clinic imagery because the Drive collection has no dedicated research visual.
+ */
+.home-hero--shared-media { background-size: cover; background-position: center 51%; }
+.home-hero--shared-media::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(9,33,69,.93) 0%, rgba(9,33,69,.84) 48%, rgba(9,33,69,.67) 100%); }
+.home-hero--shared-media::after { background: linear-gradient(90deg, rgba(8,25,51,.18), rgba(8,25,51,.02) 68%); }
+.home-hero--shared-media h1 { font-size: clamp(3.1rem, 4.3vw, 4.85rem); }
+.document-photo { overflow: hidden; margin: 0; background: #e9e4dc; }
+.document-photo img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.document-photo--tall { min-height: 430px; }
+.document-photo--tall img { object-position: center; }
+.document-photo--detail { width: min(250px, 100%); height: 138px; justify-self: end; }
+.document-photo--detail img { object-position: center; }
+.document-photo--community { height: 320px; margin-top: 4rem; }
+.document-photo--community img { object-position: center 42%; }
+.document-photo--wide { min-height: 355px; }
+.document-photo--wide img { object-position: center 45%; }
+.member-row__photo { width: 96px; height: 96px; object-fit: cover; }
+.team-image-break { height: min(34vw, 435px); min-height: 270px; margin: 0; overflow: hidden; background: #102f58; }
+.team-image-break img { width: 100%; height: 100%; object-fit: cover; object-position: center 46%; }
+@media (max-width: 960px) { .development-note__grid { grid-template-columns: auto 1fr; }.document-photo--detail { grid-column: 2; justify-self: start; width: 100%; } }
+@media (max-width: 760px) { .home-hero--shared-media { background-position: 58% center; }.home-hero--shared-media h1 { font-size: clamp(2.85rem, 12vw, 3.8rem); }.document-photo--tall { min-height: 315px; }.document-photo--community { height: 230px; margin-top: 2.25rem; }.document-photo--wide { min-height: 260px; }.document-photo--detail { height: 160px; }.member-row__photo { width: 63px; height: 63px; }.team-image-break { height: 270px; min-height: 0; }.team-image-break img { object-position: center; } }
