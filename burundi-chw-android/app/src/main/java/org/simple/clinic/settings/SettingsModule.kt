@@ -28,7 +28,12 @@ class SettingsModule {
   ): SettingsRepository {
     @Suppress("KotlinConstantConditions")
     val optionalLanguages = if (BuildConfig.FLAVOR != "production") {
-      listOf(ProvidedLanguage(displayName = "Español", languageCode = "es"))
+      listOf(
+          ProvidedLanguage(displayName = "Español", languageCode = "es"),
+          // Burundi: structure only. Strings fall back to English until reviewed Kirundi
+          // translations are added to res/values-rn-rBI. Not offered on production builds yet.
+          ProvidedLanguage(displayName = "Ikirundi (translation pending)", languageCode = "rn-BI")
+      )
     } else {
       emptyList()
     }

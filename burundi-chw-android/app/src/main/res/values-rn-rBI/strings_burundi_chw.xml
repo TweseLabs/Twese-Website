@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Kirundi (rn-BI) – INTENTIONALLY EMPTY.
+  Translations must come from qualified Kirundi translators and be reviewed by Burundi clinicians
+  before they are added here (see docs/burundi/translations/README.md and kirundi-review.csv).
+  Until then every string falls back to English (res/values). Do not machine-translate.
+-->
+<resources />

@@ -1,5 +1,8 @@
 package org.simple.clinic.drugs.selection
 
+import org.simple.clinic.chw.access.ChwPermission
+import org.simple.clinic.chw.access.ChwSession
+import android.widget.Toast
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -69,6 +72,9 @@ class EditMedicinesScreen :
 
   @Inject
   lateinit var router: Router
+
+  @Inject
+  lateinit var chwSession: ChwSession
 
   @Inject
   lateinit var effectHandlerFactory: EditMedicinesEffectHandler.Factory
@@ -165,6 +171,14 @@ class EditMedicinesScreen :
     buttonFrame.applyInsetsBottomPadding()
 
     toolbar.setNavigationOnClickListener { router.pop() }
+
+    // Burundi: CHWs may not edit medication orders. This is an early client-side refusal only;
+    // the server must also reject prescription writes from CHW accounts.
+    if (!chwSession.can(ChwPermission.EDIT_MEDICATION_ORDERS)) {
+      Toast.makeText(requireContext(), R.string.chw_medication_edit_not_permitted, Toast.LENGTH_LONG).show()
+      router.pop()
+      return
+    }
 
     recyclerView.setHasFixedSize(false)
     recyclerView.layoutManager = LinearLayoutManager(requireContext())

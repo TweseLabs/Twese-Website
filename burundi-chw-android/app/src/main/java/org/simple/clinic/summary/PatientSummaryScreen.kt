@@ -1,5 +1,9 @@
 package org.simple.clinic.summary
 
+import org.simple.clinic.chw.access.ChwRole
+import org.simple.clinic.chw.access.ChwSession
+import org.simple.clinic.chw.patient.ChwPatientScreen
+import org.simple.clinic.chw.patient.ChwPatientSummaryCard
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
@@ -185,6 +189,9 @@ class PatientSummaryScreen :
   lateinit var features: Features
 
   @Inject
+  lateinit var chwSession: ChwSession
+
+  @Inject
   lateinit var configReader: ConfigReader
 
   @Inject
@@ -313,6 +320,10 @@ class PatientSummaryScreen :
       setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
       setContent {
         SimpleTheme {
+          if (features.isEnabled(Feature.ChwWorkflows) && chwSession.role() in setOf(ChwRole.CHW, ChwRole.FIELD_COORDINATOR)) {
+            ChwPatientSummaryCard(onOpen = { router.push(ChwPatientScreen.Key(screenKey.patientUuid)) })
+          }
+
           ClinicalDecisionHighBpAlert(
               showAlert = showClinicalDecisionAlert,
               animateExit = animateClinicalDecisionSupportAlert,

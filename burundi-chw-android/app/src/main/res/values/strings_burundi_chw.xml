@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Burundi CHW module strings (English source).
+  Kirundi (rn) translations must be produced and clinically reviewed externally; see
+  docs/burundi/translations/. Do not machine-translate medical wording. English is the fallback.
+-->
+<resources>
+  <string name="chw_tab_title">Community</string>
+
+  <!-- Status / honesty banners -->
+  <string name="chw_draft_protocol_banner">DRAFT screening rules – not yet approved by Burundi clinicians. For testing with synthetic data only.</string>
+  <string name="chw_demo_role_banner">DEMO ROLE (debug build only): %1$s. Real roles must come from the server.</string>
+  <string name="chw_role_not_chw">Your account does not have the CHW role. Community screening and follow-up are only available to CHWs.</string>
+  <string name="chw_server_sync_unavailable">Server sync for CHW records is not available yet. Records stay saved on this phone and are NOT seen by the clinic.</string>
+  <string name="chw_pending_upload_count">%1$d CHW record(s) saved on this phone, not yet sent</string>
+  <string name="chw_all_saved_records_sent">All CHW records sent to the server</string>
+  <string name="chw_no_area_assignment">No active area assignment found. Ask your field coordinator. Screenings will use your current clinic as the supervising clinic.</string>
+  <string name="chw_area_and_clinic">Area: %1$s · Supervising clinic: %2$s</string>
+  <string name="chw_supervising_clinic">Supervising clinic: %1$s</string>
+
+  <!-- Demo role switcher (debug only) -->
+  <string name="chw_demo_role_title">Demo role (debug builds only)</string>
+  <string name="chw_role_chw">CHW</string>
+  <string name="chw_role_clinician">Clinician</string>
+  <string name="chw_role_field_coordinator">Field coordinator</string>
+  <string name="chw_role_program_admin">Programme admin</string>
+  <string name="chw_role_legacy">Clinic user (no programme role)</string>
+  <string name="chw_demo_seed_area">Create synthetic demo area for me</string>
+
+  <!-- Home / work queue -->
+  <string name="chw_find_or_register_patient">Find or register a person</string>
+  <string name="chw_find_or_register_hint">Use the Patients tab to search, scan a BP Passport or register. Then open the person and tap “Community health worker”.</string>
+  <string name="chw_section_urgent">Urgent – unresolved</string>
+  <string name="chw_section_overdue">Overdue</string>
+  <string name="chw_section_due_today">Due today</string>
+  <string name="chw_section_due_this_week">Due this week</string>
+  <string name="chw_section_awaiting_confirmation">Awaiting clinical confirmation</string>
+  <string name="chw_section_active_follow_up">Active follow-up (later)</string>
+  <string name="chw_queue_empty">No tasks. New screenings will create tasks here.</string>
+  <string name="chw_assigned_patients_count">My patients: %1$d</string>
+  <string name="chw_due_on">Due %1$s</string>
+  <string name="chw_unknown_patient">Person not on this phone</string>
+
+  <!-- Task types -->
+  <string name="chw_task_repeat_screening">Repeat screening</string>
+  <string name="chw_task_check_clinic_confirmation">Check clinic confirmation</string>
+  <string name="chw_task_urgent_referral_check">Urgent: check person reached care</string>
+  <string name="chw_task_routine_follow_up">Follow-up visit</string>
+  <string name="chw_task_rescreen">Re-screen</string>
+  <string name="chw_task_unknown">Task</string>
+
+  <!-- Referral statuses -->
+  <string name="chw_referral_status_draft">Draft</string>
+  <string name="chw_referral_status_pending_sync">Saved on phone – clinic has NOT received it</string>
+  <string name="chw_referral_status_received">Received by clinic</string>
+  <string name="chw_referral_status_accepted">Accepted by clinic</string>
+  <string name="chw_referral_status_completed">Completed by clinic</string>
+  <string name="chw_referral_status_unable_to_contact">Clinic could not contact</string>
+  <string name="chw_referral_status_cancelled">Cancelled</string>
+  <string name="chw_referral_status_closed_unresolved">Closed – unresolved</string>
+  <string name="chw_referral_status_unknown">Status unknown – check with clinic</string>
+  <string name="chw_referral_priority_urgent">URGENT referral</string>
+  <string name="chw_referral_priority_routine">Referral</string>
+
+  <!-- Patient summary entry + CHW patient screen -->
+  <string name="chw_patient_summary_card_title">Community health worker</string>
+  <string name="chw_patient_summary_card_body">Community screening, follow-up and referral tracking</string>
+  <string name="chw_open">Open</string>
+  <string name="chw_patient_screen_title">Community care</string>
+  <string name="chw_new_screening">New community screening</string>
+  <string name="chw_record_follow_up">Record follow-up contact</string>
+  <string name="chw_assignment_pending">Assigned to you – waiting for server confirmation</string>
+  <string name="chw_assignment_active">Assigned to you</string>
+  <string name="chw_assignment_other">Assigned to another CHW – contact your coordinator</string>
+  <string name="chw_assignment_none">Not yet assigned to a CHW</string>
+  <string name="chw_history_title">History</string>
+  <string name="chw_history_empty">No community or clinic records yet.</string>
+  <string name="chw_history_screening">Community screening (CHW) – not a diagnosis</string>
+  <string name="chw_history_clinic_bp">Clinic BP record (clinical)</string>
+  <string name="chw_history_contact">CHW contact: %1$s</string>
+  <string name="chw_open_referrals_title">Referrals</string>
+  <string name="chw_open_tasks_title">Next actions</string>
+  <string name="chw_bp_value">%1$d/%2$d mmHg</string>
+  <string name="chw_bp_two_values">%1$d/%2$d, %3$d/%4$d mmHg</string>
+  <string name="chw_sync_pending_label">Not yet sent</string>
+
+  <!-- Screening form -->
+  <string name="chw_screening_title">Community screening</string>
+  <string name="chw_consent_title">Consent</string>
+  <string name="chw_consent_body">Explain the screening and how the information is used and stored, using the approved consent script (version %1$s). Record consent only if the person agrees.</string>
+  <string name="chw_consent_checkbox">The person gave consent</string>
+  <string name="chw_location_title">Where</string>
+  <string name="chw_location_household">Household visit</string>
+  <string name="chw_location_screening_point">Community screening point</string>
+  <string name="chw_location_other">Other</string>
+  <string name="chw_measurement_instructions">Measurement: person seated and rested for 5 minutes, back supported, feet flat, arm supported at heart level, correct cuff size, no talking. Use only a validated, calibrated device.</string>
+  <string name="chw_first_reading">Reading 1</string>
+  <string name="chw_second_reading">Reading 2</string>
+  <string name="chw_second_reading_hint">Wait at least %1$d minute(s) after reading 1.</string>
+  <string name="chw_systolic">Systolic (top)</string>
+  <string name="chw_diastolic">Diastolic (bottom)</string>
+  <string name="chw_save_reading">Save reading</string>
+  <string name="chw_reading_saved_at">Saved at %1$s</string>
+  <string name="chw_edit_reading">Edit</string>
+  <string name="chw_symptoms_title">Danger signs – ask about each</string>
+  <string name="chw_symptom_none">None of these</string>
+  <string name="chw_symptom_severe_headache">Severe headache</string>
+  <string name="chw_symptom_chest_pain">Chest pain</string>
+  <string name="chw_symptom_shortness_of_breath">Shortness of breath</string>
+  <string name="chw_symptom_weakness">Weakness, numbness or trouble speaking</string>
+  <string name="chw_symptom_vision">Sudden vision changes</string>
+  <string name="chw_symptom_confusion">Confusion or reduced consciousness</string>
+  <string name="chw_special_population_title">Special situation</string>
+  <string name="chw_population_none">None</string>
+  <string name="chw_population_pregnant">Pregnant or gave birth in last 6 weeks</string>
+  <string name="chw_population_under_18">Under 18 years</string>
+  <string name="chw_population_unknown">Not sure</string>
+  <string name="chw_save_screening">Save screening</string>
+  <string name="chw_saving">Saving…</string>
+
+  <!-- Validation / rejections -->
+  <string name="chw_error_enter_reading">Enter both numbers</string>
+  <string name="chw_error_implausible_reading">This reading is not possible. Check the device and measure again.</string>
+  <string name="chw_error_consent_required">Consent is required before saving.</string>
+  <string name="chw_error_symptoms_required">Ask about every danger sign, or choose “None of these”.</string>
+  <string name="chw_error_population_required">Choose one option, or “Not sure”.</string>
+  <string name="chw_error_not_permitted">Your role is not allowed to do this.</string>
+  <string name="chw_error_assigned_to_other">This person is assigned to another CHW. Contact your coordinator.</string>
+  <string name="chw_error_not_assigned">This person is not assigned to you.</string>
+  <string name="chw_error_next_date_required">Choose the next visit date.</string>
+  <string name="chw_error_next_date_past">The next visit date cannot be in the past.</string>
+  <string name="chw_error_note_too_long">Note is too long. Keep it short and do not include names or diagnoses.</string>
+  <string name="chw_error_generic">Could not save. Nothing was lost – try again.</string>
+
+  <!-- Results (triage, not diagnosis) -->
+  <string name="chw_result_title">Screening result (not a diagnosis)</string>
+  <string name="chw_result_normal">Normal screening</string>
+  <string name="chw_result_normal_guidance">No referral needed now. Re-screen by %1$s.</string>
+  <string name="chw_result_repeat">Repeat required</string>
+  <string name="chw_result_repeat_guidance">Measure again on another day, by %1$s. This is not a diagnosis.</string>
+  <string name="chw_result_confirmation">Clinical confirmation required</string>
+  <string name="chw_result_confirmation_guidance">Ask the person to visit %1$s by %2$s so a clinician can check. This is not a diagnosis. Do not start or change any medicine.</string>
+  <string name="chw_result_urgent">Urgent clinical assessment required</string>
+  <string name="chw_result_urgent_guidance">Advise the person to go to %1$s or emergency care NOW. Follow the approved urgent-referral procedure (escort / transport / phone the clinic). This app does NOT alert the clinic and is not an emergency service.</string>
+  <string name="chw_result_review">Needs clinician review</string>
+  <string name="chw_result_review_guidance">The rules cannot decide safely. Ask the person to visit %1$s by %2$s.</string>
+  <string name="chw_result_saved_on_phone">Saved on this phone. The clinic will only see it after server sync is available and the phone has synced.</string>
+  <string name="chw_done">Done</string>
+
+  <!-- Follow-up form -->
+  <string name="chw_follow_up_title">Follow-up contact</string>
+  <string name="chw_contact_method_title">How</string>
+  <string name="chw_contact_method_home">Home visit</string>
+  <string name="chw_contact_method_phone">Phone call</string>
+  <string name="chw_contact_method_point">Community point</string>
+  <string name="chw_contact_outcome_title">Result of contact</string>
+  <string name="chw_outcome_reached">Reached the person</string>
+  <string name="chw_outcome_not_at_home">Not at home</string>
+  <string name="chw_outcome_phone_unreachable">Phone not reachable</string>
+  <string name="chw_outcome_declined">Declined follow-up</string>
+  <string name="chw_outcome_transferred">Now cared for elsewhere</string>
+  <string name="chw_outcome_moved">Moved away</string>
+  <string name="chw_outcome_unknown">Unknown</string>
+  <string name="chw_reading_optional">BP reading (optional)</string>
+  <string name="chw_medicine_title">Medicine (as reported by the person)</string>
+  <string name="chw_medicine_has_taking">Has medicine, taking it</string>
+  <string name="chw_medicine_has_not_taking">Has medicine, not taking it</string>
+  <string name="chw_medicine_ran_out">Ran out</string>
+  <string name="chw_medicine_could_not_get">Could not get it at clinic/pharmacy</string>
+  <string name="chw_medicine_not_on">Not on medicine</string>
+  <string name="chw_medicine_not_asked">Not asked</string>
+  <string name="chw_side_effect_concern">Person reports a possible side effect – advise clinic visit</string>
+  <string name="chw_next_visit_in">Next visit in</string>
+  <string name="chw_days">%1$d days</string>
+  <string name="chw_note_optional">Short note (optional, no names or diagnoses)</string>
+  <string name="chw_save_contact">Save contact</string>
+  <string name="chw_contact_saved">Contact saved on this phone.</string>
+  <string name="chw_prescriptions_clinic_only">Medicines are prescribed and changed only by clinic staff.</string>
+  <string name="chw_medication_edit_not_permitted">Your role (CHW) cannot edit medicines. Ask a clinician.</string>
+</resources>

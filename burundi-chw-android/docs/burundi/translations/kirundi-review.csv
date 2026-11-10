@@ -1,0 +1,153 @@
+key,english,kirundi_translation,needs_clinical_review,translator,clinical_reviewer,status
+chw_tab_title,Community,,no,,,todo
+chw_draft_protocol_banner,DRAFT screening rules – not yet approved by Burundi clinicians. For testing with synthetic data only.,,no,,,todo
+chw_demo_role_banner,DEMO ROLE (debug build only): %1$s. Real roles must come from the server.,,no,,,todo
+chw_role_not_chw,Your account does not have the CHW role. Community screening and follow-up are only available to CHWs.,,no,,,todo
+chw_server_sync_unavailable,Server sync for CHW records is not available yet. Records stay saved on this phone and are NOT seen by the clinic.,,no,,,todo
+chw_pending_upload_count,"%1$d CHW record(s) saved on this phone, not yet sent",,no,,,todo
+chw_all_saved_records_sent,All CHW records sent to the server,,no,,,todo
+chw_no_area_assignment,No active area assignment found. Ask your field coordinator. Screenings will use your current clinic as the supervising clinic.,,no,,,todo
+chw_area_and_clinic,Area: %1$s · Supervising clinic: %2$s,,no,,,todo
+chw_supervising_clinic,Supervising clinic: %1$s,,no,,,todo
+chw_demo_role_title,Demo role (debug builds only),,no,,,todo
+chw_role_chw,CHW,,no,,,todo
+chw_role_clinician,Clinician,,no,,,todo
+chw_role_field_coordinator,Field coordinator,,no,,,todo
+chw_role_program_admin,Programme admin,,no,,,todo
+chw_role_legacy,Clinic user (no programme role),,no,,,todo
+chw_demo_seed_area,Create synthetic demo area for me,,no,,,todo
+chw_find_or_register_patient,Find or register a person,,no,,,todo
+chw_find_or_register_hint,"Use the Patients tab to search, scan a BP Passport or register. Then open the person and tap “Community health worker”.",,no,,,todo
+chw_section_urgent,Urgent – unresolved,,yes,,,todo
+chw_section_overdue,Overdue,,no,,,todo
+chw_section_due_today,Due today,,no,,,todo
+chw_section_due_this_week,Due this week,,no,,,todo
+chw_section_awaiting_confirmation,Awaiting clinical confirmation,,no,,,todo
+chw_section_active_follow_up,Active follow-up (later),,no,,,todo
+chw_queue_empty,No tasks. New screenings will create tasks here.,,no,,,todo
+chw_assigned_patients_count,My patients: %1$d,,no,,,todo
+chw_due_on,Due %1$s,,no,,,todo
+chw_unknown_patient,Person not on this phone,,no,,,todo
+chw_task_repeat_screening,Repeat screening,,no,,,todo
+chw_task_check_clinic_confirmation,Check clinic confirmation,,no,,,todo
+chw_task_urgent_referral_check,Urgent: check person reached care,,yes,,,todo
+chw_task_routine_follow_up,Follow-up visit,,no,,,todo
+chw_task_rescreen,Re-screen,,no,,,todo
+chw_task_unknown,Task,,no,,,todo
+chw_referral_status_draft,Draft,,no,,,todo
+chw_referral_status_pending_sync,Saved on phone – clinic has NOT received it,,no,,,todo
+chw_referral_status_received,Received by clinic,,no,,,todo
+chw_referral_status_accepted,Accepted by clinic,,no,,,todo
+chw_referral_status_completed,Completed by clinic,,no,,,todo
+chw_referral_status_unable_to_contact,Clinic could not contact,,no,,,todo
+chw_referral_status_cancelled,Cancelled,,no,,,todo
+chw_referral_status_closed_unresolved,Closed – unresolved,,no,,,todo
+chw_referral_status_unknown,Status unknown – check with clinic,,no,,,todo
+chw_referral_priority_urgent,URGENT referral,,yes,,,todo
+chw_referral_priority_routine,Referral,,yes,,,todo
+chw_patient_summary_card_title,Community health worker,,no,,,todo
+chw_patient_summary_card_body,"Community screening, follow-up and referral tracking",,no,,,todo
+chw_open,Open,,no,,,todo
+chw_patient_screen_title,Community care,,no,,,todo
+chw_new_screening,New community screening,,no,,,todo
+chw_record_follow_up,Record follow-up contact,,no,,,todo
+chw_assignment_pending,Assigned to you – waiting for server confirmation,,no,,,todo
+chw_assignment_active,Assigned to you,,no,,,todo
+chw_assignment_other,Assigned to another CHW – contact your coordinator,,no,,,todo
+chw_assignment_none,Not yet assigned to a CHW,,no,,,todo
+chw_history_title,History,,no,,,todo
+chw_history_empty,No community or clinic records yet.,,no,,,todo
+chw_history_screening,Community screening (CHW) – not a diagnosis,,no,,,todo
+chw_history_clinic_bp,Clinic BP record (clinical),,no,,,todo
+chw_history_contact,CHW contact: %1$s,,no,,,todo
+chw_open_referrals_title,Referrals,,no,,,todo
+chw_open_tasks_title,Next actions,,no,,,todo
+chw_bp_value,%1$d/%2$d mmHg,,no,,,todo
+chw_bp_two_values,"%1$d/%2$d, %3$d/%4$d mmHg",,no,,,todo
+chw_sync_pending_label,Not yet sent,,no,,,todo
+chw_screening_title,Community screening,,no,,,todo
+chw_consent_title,Consent,,yes,,,todo
+chw_consent_body,"Explain the screening and how the information is used and stored, using the approved consent script (version %1$s). Record consent only if the person agrees.",,yes,,,todo
+chw_consent_checkbox,The person gave consent,,yes,,,todo
+chw_location_title,Where,,no,,,todo
+chw_location_household,Household visit,,no,,,todo
+chw_location_screening_point,Community screening point,,no,,,todo
+chw_location_other,Other,,no,,,todo
+chw_measurement_instructions,"Measurement: person seated and rested for 5 minutes, back supported, feet flat, arm supported at heart level, correct cuff size, no talking. Use only a validated, calibrated device.",,yes,,,todo
+chw_first_reading,Reading 1,,no,,,todo
+chw_second_reading,Reading 2,,no,,,todo
+chw_second_reading_hint,Wait at least %1$d minute(s) after reading 1.,,no,,,todo
+chw_systolic,Systolic (top),,no,,,todo
+chw_diastolic,Diastolic (bottom),,no,,,todo
+chw_save_reading,Save reading,,no,,,todo
+chw_reading_saved_at,Saved at %1$s,,no,,,todo
+chw_edit_reading,Edit,,no,,,todo
+chw_symptoms_title,Danger signs – ask about each,,yes,,,todo
+chw_symptom_none,None of these,,yes,,,todo
+chw_symptom_severe_headache,Severe headache,,yes,,,todo
+chw_symptom_chest_pain,Chest pain,,yes,,,todo
+chw_symptom_shortness_of_breath,Shortness of breath,,yes,,,todo
+chw_symptom_weakness,"Weakness, numbness or trouble speaking",,yes,,,todo
+chw_symptom_vision,Sudden vision changes,,yes,,,todo
+chw_symptom_confusion,Confusion or reduced consciousness,,yes,,,todo
+chw_special_population_title,Special situation,,yes,,,todo
+chw_population_none,None,,yes,,,todo
+chw_population_pregnant,Pregnant or gave birth in last 6 weeks,,yes,,,todo
+chw_population_under_18,Under 18 years,,yes,,,todo
+chw_population_unknown,Not sure,,yes,,,todo
+chw_save_screening,Save screening,,no,,,todo
+chw_saving,Saving…,,no,,,todo
+chw_error_enter_reading,Enter both numbers,,no,,,todo
+chw_error_implausible_reading,This reading is not possible. Check the device and measure again.,,yes,,,todo
+chw_error_consent_required,Consent is required before saving.,,yes,,,todo
+chw_error_symptoms_required,"Ask about every danger sign, or choose “None of these”.",,yes,,,todo
+chw_error_population_required,"Choose one option, or “Not sure”.",,yes,,,todo
+chw_error_not_permitted,Your role is not allowed to do this.,,no,,,todo
+chw_error_assigned_to_other,This person is assigned to another CHW. Contact your coordinator.,,no,,,todo
+chw_error_not_assigned,This person is not assigned to you.,,no,,,todo
+chw_error_next_date_required,Choose the next visit date.,,no,,,todo
+chw_error_next_date_past,The next visit date cannot be in the past.,,no,,,todo
+chw_error_note_too_long,Note is too long. Keep it short and do not include names or diagnoses.,,no,,,todo
+chw_error_generic,Could not save. Nothing was lost – try again.,,no,,,todo
+chw_result_title,Screening result (not a diagnosis),,yes,,,todo
+chw_result_normal,Normal screening,,yes,,,todo
+chw_result_normal_guidance,No referral needed now. Re-screen by %1$s.,,yes,,,todo
+chw_result_repeat,Repeat required,,yes,,,todo
+chw_result_repeat_guidance,"Measure again on another day, by %1$s. This is not a diagnosis.",,yes,,,todo
+chw_result_confirmation,Clinical confirmation required,,yes,,,todo
+chw_result_confirmation_guidance,Ask the person to visit %1$s by %2$s so a clinician can check. This is not a diagnosis. Do not start or change any medicine.,,yes,,,todo
+chw_result_urgent,Urgent clinical assessment required,,yes,,,todo
+chw_result_urgent_guidance,Advise the person to go to %1$s or emergency care NOW. Follow the approved urgent-referral procedure (escort / transport / phone the clinic). This app does NOT alert the clinic and is not an emergency service.,,yes,,,todo
+chw_result_review,Needs clinician review,,yes,,,todo
+chw_result_review_guidance,The rules cannot decide safely. Ask the person to visit %1$s by %2$s.,,yes,,,todo
+chw_result_saved_on_phone,Saved on this phone. The clinic will only see it after server sync is available and the phone has synced.,,yes,,,todo
+chw_done,Done,,no,,,todo
+chw_follow_up_title,Follow-up contact,,no,,,todo
+chw_contact_method_title,How,,no,,,todo
+chw_contact_method_home,Home visit,,no,,,todo
+chw_contact_method_phone,Phone call,,no,,,todo
+chw_contact_method_point,Community point,,no,,,todo
+chw_contact_outcome_title,Result of contact,,no,,,todo
+chw_outcome_reached,Reached the person,,no,,,todo
+chw_outcome_not_at_home,Not at home,,no,,,todo
+chw_outcome_phone_unreachable,Phone not reachable,,no,,,todo
+chw_outcome_declined,Declined follow-up,,no,,,todo
+chw_outcome_transferred,Now cared for elsewhere,,no,,,todo
+chw_outcome_moved,Moved away,,no,,,todo
+chw_outcome_unknown,Unknown,,no,,,todo
+chw_reading_optional,BP reading (optional),,no,,,todo
+chw_medicine_title,Medicine (as reported by the person),,yes,,,todo
+chw_medicine_has_taking,"Has medicine, taking it",,yes,,,todo
+chw_medicine_has_not_taking,"Has medicine, not taking it",,yes,,,todo
+chw_medicine_ran_out,Ran out,,yes,,,todo
+chw_medicine_could_not_get,Could not get it at clinic/pharmacy,,yes,,,todo
+chw_medicine_not_on,Not on medicine,,yes,,,todo
+chw_medicine_not_asked,Not asked,,yes,,,todo
+chw_side_effect_concern,Person reports a possible side effect – advise clinic visit,,yes,,,todo
+chw_next_visit_in,Next visit in,,no,,,todo
+chw_days,%1$d days,,no,,,todo
+chw_note_optional,"Short note (optional, no names or diagnoses)",,no,,,todo
+chw_save_contact,Save contact,,no,,,todo
+chw_contact_saved,Contact saved on this phone.,,no,,,todo
+chw_prescriptions_clinic_only,Medicines are prescribed and changed only by clinic staff.,,yes,,,todo
+chw_medication_edit_not_permitted,Your role (CHW) cannot edit medicines. Ask a clinician.,,no,,,todo

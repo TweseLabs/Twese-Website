@@ -1,5 +1,7 @@
 package org.simple.clinic.home
 
+import org.simple.clinic.chw.access.ChwRole
+import org.simple.clinic.chw.access.ChwSession
 import android.Manifest
 import android.content.Context
 import android.content.Intent
@@ -35,6 +37,7 @@ import org.simple.clinic.deeplink.ShowPatientNotFound
 import org.simple.clinic.deeplink.ShowTeleconsultNotAllowed
 import org.simple.clinic.di.injector
 import org.simple.clinic.facility.change.FacilityChangeScreen
+import org.simple.clinic.feature.Feature
 import org.simple.clinic.feature.Features
 import org.simple.clinic.home.HomeScreen.ScreenRequest.ChangeCurrentFacility
 import org.simple.clinic.home.HomeTab.OVERDUE
@@ -115,7 +118,14 @@ class HomeScreen :
 
   private val hotEvents = PublishSubject.create<HomeScreenEvent>()
 
-  private val tabs = listOf(PATIENTS, OVERDUE, REPORTS)
+  @Inject
+  lateinit var chwSession: ChwSession
+
+  private val tabs by lazy {
+    val showChwTab = features.isEnabled(Feature.ChwWorkflows) &&
+        (chwSession.role() in setOf(ChwRole.CHW, ChwRole.FIELD_COORDINATOR) || chwSession.isDemoRoleAllowed)
+    if (showChwTab) listOf(HomeTab.CHW, PATIENTS, OVERDUE, REPORTS) else listOf(PATIENTS, OVERDUE, REPORTS)
+  }
 
   override fun defaultModel() = HomeScreenModel.create()
 
@@ -173,7 +183,7 @@ class HomeScreen :
 
     // The WebView in "Progress" tab is expensive to load. Pre-instantiating
     // it when the app starts reduces its time-to-display.
-    viewPager.offscreenPageLimit = REPORTS.ordinal - PATIENTS.ordinal
+    viewPager.offscreenPageLimit = tabs.size - 1
 
     // Open deep links results at end of the queue, so that
     // existing fragment transactions can be finished, or else

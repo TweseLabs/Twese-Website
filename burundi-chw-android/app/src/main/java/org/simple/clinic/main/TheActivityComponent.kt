@@ -1,5 +1,9 @@
 package org.simple.clinic.main
 
+import org.simple.clinic.chw.followup.entry.ChwFollowUpScreen
+import org.simple.clinic.chw.home.ChwHomeScreen
+import org.simple.clinic.chw.patient.ChwPatientScreen
+import org.simple.clinic.chw.screening.entry.NewScreeningScreen
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.FragmentManager
 import dagger.BindsInstance
@@ -170,6 +174,10 @@ interface TheActivityComponent :
     MonthlyReportsScreen.Injector,
     MonthlyReportCompleteScreen.Injector,
     ReassignPatientSheet.Injector,
+    ChwHomeScreen.Injector,
+    ChwPatientScreen.Injector,
+    NewScreeningScreen.Injector,
+    ChwFollowUpScreen.Injector,
     BMIEntrySheet.Injector,
     CholesterolEntrySheet.Injector {
   fun inject(target: TheActivity)
