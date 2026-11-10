@@ -32,4 +32,16 @@ enum class Feature(
   ShowReturnScoreDebugValues(false, "show_return_score_debug_values"),
   ShowBMIContainer(false, "show_bmi_container"),
   ShowCVDRisk(false, "show_cvd_risk"),
+
+  /**
+   * Burundi CHW workflows (community screening, CHW work queue, follow-up, referral tracking).
+   * Local only: no remote-config key, so no third-party service can toggle it.
+   */
+  ChwWorkflows(true),
+
+  /**
+   * SERVER-BLOCKED. Enables CHW record sync against the Burundi server endpoints specified in
+   * docs/burundi/api-contract.md. Keep disabled until a verified server implementation exists.
+   */
+  BurundiChwServerSync(false),
 }

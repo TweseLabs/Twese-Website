@@ -1,5 +1,14 @@
 package org.simple.clinic
 
+import org.simple.clinic.chw.ChwRoomTypeConverters
+import org.simple.clinic.chw.area.ChwAssignment
+import org.simple.clinic.chw.area.CommunityArea
+import org.simple.clinic.chw.area.PatientChwAssignment
+import org.simple.clinic.chw.followup.ChwContact
+import org.simple.clinic.chw.followup.ChwFollowUpTask
+import org.simple.clinic.chw.referral.Referral
+import org.simple.clinic.chw.referral.ReferralStatus
+import org.simple.clinic.chw.screening.ScreeningEpisode
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.room.Database
@@ -109,11 +118,19 @@ import org.simple.clinic.patient.Answer as PatientAnswer
       PatientAttribute::class,
       CVDRisk::class,
       ReturnScore::class,
+      // Burundi CHW module (schema v124)
+      CommunityArea::class,
+      ChwAssignment::class,
+      PatientChwAssignment::class,
+      ScreeningEpisode::class,
+      Referral::class,
+      ChwFollowUpTask::class,
+      ChwContact::class,
     ],
     views = [
       PatientSearchResult::class
     ],
-    version = 123,
+    version = 124,
     exportSchema = true
 )
 @TypeConverters(
@@ -152,6 +169,8 @@ import org.simple.clinic.patient.Answer as PatientAnswer
     PatientAnswer.RoomTypeConverter::class,
     CVDRiskRange.RoomTypeConverter::class,
     ScoreType.RoomTypeConverter::class,
+    ChwRoomTypeConverters::class,
+    ReferralStatus.RoomTypeConverter::class,
 )
 abstract class AppDatabase : RoomDatabase() {
 
@@ -215,6 +234,20 @@ abstract class AppDatabase : RoomDatabase() {
 
   abstract fun returnScoreDao(): ReturnScore.RoomDao
 
+  abstract fun communityAreaDao(): CommunityArea.RoomDao
+
+  abstract fun chwAssignmentDao(): ChwAssignment.RoomDao
+
+  abstract fun patientChwAssignmentDao(): PatientChwAssignment.RoomDao
+
+  abstract fun screeningEpisodeDao(): ScreeningEpisode.RoomDao
+
+  abstract fun chwReferralDao(): Referral.RoomDao
+
+  abstract fun chwFollowUpTaskDao(): ChwFollowUpTask.RoomDao
+
+  abstract fun chwContactDao(): ChwContact.RoomDao
+
   fun clearAppData() {
     runInTransaction {
       patientDao().clear()
@@ -235,6 +268,13 @@ abstract class AppDatabase : RoomDatabase() {
       patientAttributeDao().clear()
       cvdRiskDao().clear()
       returnScoreDao().clear()
+      communityAreaDao().clear()
+      chwAssignmentDao().clear()
+      patientChwAssignmentDao().clear()
+      screeningEpisodeDao().clear()
+      chwReferralDao().clear()
+      chwFollowUpTaskDao().clear()
+      chwContactDao().clear()
     }
   }
 
@@ -266,7 +306,8 @@ abstract class AppDatabase : RoomDatabase() {
           purgeUnnecessaryPrescriptions() +
           purgeUnnecessaryCallResults() +
           purgeUnnecessaryQuestionnaireResponses() +
-          purgeUnnecessaryReturnScores()
+          purgeUnnecessaryReturnScores() +
+          purgeUnnecessaryChwRecords()
     }
   }
 
@@ -322,6 +363,13 @@ abstract class AppDatabase : RoomDatabase() {
   private fun purgeUnnecessaryQuestionnaireResponses(): Int {
     return questionnaireDao().purgeDeleted() +
         questionnaireResponseDao().purgeDeleted()
+  }
+
+  private fun purgeUnnecessaryChwRecords(): Int {
+    return screeningEpisodeDao().purgeDeleted() +
+        chwReferralDao().purgeDeleted() +
+        chwFollowUpTaskDao().purgeDeleted() +
+        chwContactDao().purgeDeleted()
   }
 
   private fun purgeUnnecessaryReturnScores(): Int {

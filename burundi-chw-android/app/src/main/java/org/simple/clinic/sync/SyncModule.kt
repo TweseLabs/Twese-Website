@@ -10,6 +10,8 @@ import org.simple.clinic.bloodsugar.sync.BloodSugarSync
 import org.simple.clinic.bp.BloodPressureRepository
 import org.simple.clinic.bp.di.BloodPressureModule
 import org.simple.clinic.bp.sync.BloodPressureSync
+import org.simple.clinic.chw.di.ChwModule
+import org.simple.clinic.chw.sync.ChwSync
 import org.simple.clinic.cvdrisk.CVDRiskModule
 import org.simple.clinic.cvdrisk.sync.CVDRiskSync
 import org.simple.clinic.drugs.PrescriptionModule
@@ -78,6 +80,7 @@ import javax.inject.Named
   PatientAttributeModule::class,
   CVDRiskModule::class,
   ReturnScoreModule::class,
+  ChwModule::class,
 ])
 class SyncModule {
 
@@ -102,9 +105,12 @@ class SyncModule {
       questionnaireResponseSync: QuestionnaireResponseSync,
       patientAttributeSync: PatientAttributeSync,
       cvdRiskSync: CVDRiskSync,
-      returnScoreSync: ReturnScoreSync
+      returnScoreSync: ReturnScoreSync,
+      chwSync: ChwSync
   ): List<ModelSync> {
-    val optionalSyncs = if (features.isEnabled(Feature.CallResultSyncEnabled)) listOf(callResultSync) else emptyList()
+    val optionalSyncs = (if (features.isEnabled(Feature.CallResultSyncEnabled)) listOf(callResultSync) else emptyList()) +
+        // Server-blocked: CHW sync is only registered once the Burundi endpoints exist.
+        (if (features.isEnabled(Feature.BurundiChwServerSync)) listOf(chwSync) else emptyList())
 
     return listOf(facilitySync) + listOf(
         questionnaireSync, questionnaireResponseSync, protocolSync, reportsSync, helpSync,

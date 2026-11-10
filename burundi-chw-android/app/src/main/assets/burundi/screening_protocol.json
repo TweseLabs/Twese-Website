@@ -1,0 +1,22 @@
+{
+  "_comment": "DRAFT - NOT CLINICALLY APPROVED. Placeholder values for software testing only. Replace with the protocol signed off by qualified Burundi clinicians (docs/burundi/clinical-rules-to-approve.md). Set approved=true and approved_by only after formal sign-off.",
+  "version": "draft-0.1-unapproved",
+  "approved": false,
+  "approved_by": null,
+  "plausible_systolic_min": 70,
+  "plausible_systolic_max": 300,
+  "plausible_diastolic_min": 40,
+  "plausible_diastolic_max": 200,
+  "elevated_systolic": 140,
+  "elevated_diastolic": 90,
+  "urgent_systolic": 180,
+  "urgent_diastolic": 110,
+  "second_reading_required_when_first_elevated": true,
+  "minimum_minutes_between_readings": 1,
+  "max_systolic_difference_between_readings": 25,
+  "danger_sign_codes": ["severe_headache", "chest_pain", "shortness_of_breath", "weakness_numbness_speech", "vision_changes", "confusion"],
+  "repeat_screening_due_in_days": 7,
+  "confirmation_referral_due_in_days": 14,
+  "clinician_review_due_in_days": 7,
+  "normal_rescreen_due_in_days": 365
+}
