@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/applock_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:ignore="Overdraw">
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/spacing_192"
+    android:background="?attr/colorToolbarPrimary"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <LinearLayout
+    android:id="@+id/applock_logo_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingStart="@dimen/spacing_24"
+    android:paddingTop="@dimen/spacing_4"
+    android:paddingEnd="@dimen/spacing_24"
+    android:paddingBottom="@dimen/spacing_16"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+
+    <TextView
+      android:id="@+id/facilityTextView"
+      style="@style/Widget.Simple.ExpandedToolbar.FacilityName"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_marginStart="@dimen/spacing_24"
+      android:layout_marginEnd="@dimen/spacing_24"
+      tools:text="A really long facility name that does not fit" />
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_16"
+      android:gravity="center_vertical">
+
+      <TextView
+        android:id="@+id/fullNameTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="?attr/colorOnToolbarPrimary"
+        tools:text="A really long person name" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/logoutButton"
+        style="@style/Widget.Simple.Button.Toolbar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/applock_logout"
+        android:visibility="gone"
+        app:cornerRadius="@dimen/spacing_0"
+        tools:ignore="UnusedAttribute" />
+
+    </LinearLayout>
+
+  </LinearLayout>
+
+  <org.simple.clinic.security.pin.PinEntryCardView
+    android:id="@+id/pinEntryCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/spacing_16"
+    android:layout_marginEnd="@dimen/spacing_16"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/applock_logo_container"
+    app:verificationMethod="local" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

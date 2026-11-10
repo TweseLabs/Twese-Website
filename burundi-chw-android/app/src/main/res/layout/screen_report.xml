@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <org.simple.clinic.util.NestedScrollableHost
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+      android:id="@+id/webView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:visibility="gone" />
+
+  </org.simple.clinic.util.NestedScrollableHost>
+
+  <LinearLayout
+    android:id="@+id/noReportView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <ImageView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_32"
+      android:adjustViewBounds="true"
+      app:srcCompat="@drawable/illustration_reports"
+      tools:ignore="ContentDescription" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/reports_come_back_later"
+      android:textAppearance="?attr/textAppearanceHeadline6"
+      android:textColor="@color/color_on_surface_67" />
+
+    <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_32"
+      android:layout_marginTop="@dimen/spacing_12"
+      android:layout_marginEnd="@dimen/spacing_32"
+      android:text="@string/reports_you_will_be_able_to_see"
+      android:textAlignment="center"
+      android:textAppearance="?attr/textAppearanceSubtitle1"
+      android:textColor="@color/color_on_surface_67" />
+
+  </LinearLayout>
+
+</FrameLayout>

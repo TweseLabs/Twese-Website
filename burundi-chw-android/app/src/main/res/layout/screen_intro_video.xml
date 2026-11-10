@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:background="?android:attr/colorBackground"
+  android:theme="@style/ThemeOverlay.Simple.IntroVideoScreen">
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/skipButton"
+    style="@style/Widget.Simple.Button.Toolbar"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="end"
+    android:layout_marginTop="@dimen/spacing_16"
+    android:layout_marginEnd="@dimen/spacing_8"
+    android:text="@string/screenintrovideo_skip"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:ignore="UnusedAttribute" />
+
+  <TextView
+    android:id="@+id/introVideoTitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="@string/screenintrovideo_how_to_use_simple_app"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:textColor="?attr/colorOnBackground"
+    app:layout_constraintBottom_toTopOf="@+id/introVideoSubtitle"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/skipButton"
+    app:layout_constraintVertical_chainStyle="packed" />
+
+  <TextView
+    android:id="@+id/introVideoSubtitle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/spacing_24"
+    android:textAppearance="?attr/textAppearanceBody2"
+    android:textColor="@color/intro_video_subtitle"
+    app:layout_constraintBottom_toTopOf="@+id/introVideoImageView"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/introVideoTitle"
+    tools:text="5:07 minutes" />
+
+  <ImageView
+    android:id="@+id/introVideoImageView"
+    android:layout_width="0dp"
+    android:layout_height="208dp"
+    android:foreground="?selectableItemBackground"
+    app:layout_constraintBottom_toTopOf="@id/watchVideoButton"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/introVideoSubtitle"
+    app:srcCompat="@drawable/thumbnail_simple_video"
+    tools:ignore="ContentDescription,UnusedAttribute" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/watchVideoButton"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/spacing_16"
+    android:layout_marginTop="@dimen/spacing_24"
+    android:layout_marginEnd="@dimen/spacing_16"
+    android:text="@string/screenintrovideo_watch_video"
+    app:icon="@drawable/ic_play_circle_filled_24px"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/introVideoImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

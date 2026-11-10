@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:installLocation="preferExternal">
+
+  <uses-feature
+    android:name="android.hardware.camera"
+    android:required="false" />
+  <uses-feature
+    android:name="android.hardware.telephony"
+    android:required="false" />
+  <uses-feature
+    android:name="android.hardware.camera.autofocus"
+    android:required="false" />
+
+  <uses-permission android:name="android.permission.CALL_PHONE" />
+  <uses-permission android:name="android.permission.CAMERA" />
+  <uses-permission android:name="android.permission.VIBRATE" />
+  <uses-permission android:name="android.permission.INTERNET" />
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+  <uses-permission
+    android:name="android.permission.READ_EXTERNAL_STORAGE"
+    tools:ignore="ScopedStorage" />
+  <uses-permission
+    android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    tools:ignore="ScopedStorage" />
+  <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+  <uses-permission android:name="android.permission.FOREGROUND_SERVICE_DATA_SYNC" />
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data
+        android:host="www.youtube.com"
+        android:scheme="https" />
+    </intent>
+
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:mimeType="text/csv" />
+    </intent>
+
+    <intent>
+      <action android:name="android.intent.action.VIEW" />
+      <data android:mimeType="application/pdf" />
+    </intent>
+  </queries>
+
+  <application
+    android:name=".ReleaseClinicApp"
+    android:allowBackup="false"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:networkSecurityConfig="@xml/network_config"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.Simple"
+    tools:ignore="AllowBackup,DataExtractionRules,GoogleAppIndexingWarning,LockedOrientationActivity"
+    tools:replace="android:allowBackup">
+
+    <meta-data
+      android:name="com.google.mlkit.vision.DEPENDENCIES"
+      android:value="barcode" />
+
+    <meta-data
+      android:name="io.sentry.auto-init"
+      android:value="false" />
+
+    <service
+      android:name="androidx.work.impl.foreground.SystemForegroundService"
+      android:foregroundServiceType="dataSync"
+      tools:node="merge" />
+
+    <activity
+      android:name=".setup.SetupActivity"
+      android:exported="true"
+      android:launchMode="singleTask"
+      android:screenOrientation="portrait"
+      tools:ignore="DiscouragedApi">
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN" />
+        <category android:name="android.intent.category.LAUNCHER" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".main.TheActivity"
+      android:screenOrientation="portrait"
+      android:windowSoftInputMode="adjustResize"
+      tools:ignore="DiscouragedApi" />
+
+    <activity
+      android:name=".bp.entry.BloodPressureEntrySheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".bloodsugar.selection.type.BloodSugarTypePickerSheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".registration.confirmfacility.ConfirmFacilitySheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".drugs.selection.dosage.DosagePickerSheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".summary.teleconsultation.contactdoctor.ContactDoctorSheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".teleconsultlog.medicinefrequency.MedicineFrequencySheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".deeplink.DeepLinkActivity"
+      android:exported="true"
+      android:screenOrientation="portrait"
+      android:windowSoftInputMode="adjustResize"
+      tools:ignore="DiscouragedApi">
+      <intent-filter android:autoVerify="true">
+        <action android:name="android.intent.action.VIEW" />
+
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <!-- Accepts URIs that begin with "https://app.simple.org/patient” -->
+        <data android:scheme="http" />
+        <data android:scheme="https" />
+        <data android:host="app.simple.org" />
+        <data android:pathPrefix="/consult" />
+        <data android:pathPrefix="/patient" />
+      </intent-filter>
+    </activity>
+
+    <activity
+      android:name=".signature.SignatureActivity"
+      android:theme="@style/Theme.Simple.TranslucentBackground" />
+
+    <activity
+      android:name=".teleconsultlog.drugduration.DrugDurationSheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".summary.teleconsultation.status.TeleconsultStatusSheet"
+      android:theme="@style/Theme.Simple.BottomSheetActivity"
+      android:windowSoftInputMode="adjustResize" />
+
+    <activity
+      android:name=".registerorlogin.AuthenticationActivity"
+      android:screenOrientation="portrait"
+      android:windowSoftInputMode="adjustResize"
+      tools:ignore="DiscouragedApi" />
+
+    <receiver
+      android:name=".login.OtpSmsReceiver"
+      android:exported="true"
+      tools:ignore="ExportedReceiver">
+      <intent-filter>
+        <action android:name="com.google.android.gms.auth.api.phone.SMS_RETRIEVED" />
+      </intent-filter>
+    </receiver>
+
+    <provider
+      android:name="org.simple.clinic.fileprovider.SimpleFileProvider"
+      android:authorities="${applicationId}.provider"
+      android:exported="false"
+      android:grantUriPermissions="true">
+      <meta-data
+        android:name="android.support.FILE_PROVIDER_PATHS"
+        android:resource="@xml/provider_paths" />
+    </provider>
+  </application>
+</manifest>

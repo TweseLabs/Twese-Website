@@ -1,0 +1,29 @@
+package org.simple.clinic.summary.bloodpressures
+
+import org.simple.clinic.bp.BloodPressureMeasurement
+import org.simple.clinic.facility.Facility
+import org.simple.clinic.medicalhistory.MedicalHistory
+import org.simple.clinic.widgets.UiEvent
+import java.util.UUID
+
+sealed class BloodPressureSummaryViewEvent : UiEvent
+
+data class BloodPressuresLoaded(val measurements: List<BloodPressureMeasurement>) : BloodPressureSummaryViewEvent()
+
+data class BloodPressuresCountLoaded(val count: Int) : BloodPressureSummaryViewEvent()
+
+data class CurrentFacilityLoaded(val facility: Facility) : BloodPressureSummaryViewEvent()
+
+data class MedicalHistoryLoaded(val medicalHistory: MedicalHistory) : BloodPressureSummaryViewEvent()
+
+data object AddNewBloodPressureClicked : BloodPressureSummaryViewEvent() {
+  override val analyticsName = "Patient Summary:Add New BP Clicked"
+}
+
+data class BloodPressureClicked(val id: UUID) : BloodPressureSummaryViewEvent() {
+  override val analyticsName = "Patient Summary:BP Clicked for editing"
+}
+
+data object SeeAllClicked : BloodPressureSummaryViewEvent() {
+  override val analyticsName = "Patient Summary:See All Clicked"
+}

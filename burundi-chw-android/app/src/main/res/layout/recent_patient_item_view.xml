@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_marginStart="@dimen/spacing_8"
+  android:layout_marginEnd="@dimen/spacing_8"
+  android:layout_marginBottom="@dimen/spacing_8">
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="@dimen/spacing_16">
+
+    <ImageView
+      android:id="@+id/genderImageView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      tools:ignore="ContentDescription"
+      tools:src="@drawable/ic_patient_transgender" />
+
+    <TextView
+      android:id="@+id/patientNameTextView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_16"
+      android:layout_marginEnd="@dimen/spacing_16"
+      android:layout_marginBottom="@dimen/spacing_4"
+      android:textAppearance="?attr/textAppearanceSubtitle1"
+      android:textColor="?attr/colorPrimary"
+      app:layout_constraintBottom_toTopOf="@id/patientStatusTextView"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toEndOf="@+id/genderImageView"
+      app:layout_constraintTop_toTopOf="@+id/genderImageView"
+      tools:text="Anish Acharya, 43" />
+
+    <TextView
+      android:id="@+id/patientStatusTextView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_12"
+      android:textAppearance="?attr/textAppearanceBody2"
+      android:textColor="?attr/colorPrimary"
+      android:theme="@style/ThemeOverlay.Simple.Green1Primary"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@id/facilityReassignmentView"
+      app:layout_constraintEnd_toEndOf="@id/patientNameTextView"
+      app:layout_constraintStart_toStartOf="@id/patientNameTextView"
+      app:layout_constraintTop_toBottomOf="@id/patientNameTextView"
+      tools:visibility="visible" />
+
+    <include
+      android:id="@+id/facilityReassignmentView"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="@dimen/spacing_12"
+      layout="@layout/view_patient_facility_reassignment_list_item"
+      app:layout_constraintBottom_toTopOf="@id/lastSeenLabelTextView"
+      app:layout_constraintEnd_toEndOf="@id/patientNameTextView"
+      app:layout_constraintStart_toStartOf="@id/patientNameTextView"
+      app:layout_constraintTop_toBottomOf="@id/patientStatusTextView" />
+
+    <TextView
+      android:id="@+id/lastSeenLabelTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="@string/recent_patients_itemview_last_seen"
+      android:textAllCaps="true"
+      android:textAppearance="?attr/textAppearanceTag"
+      android:textColor="@color/color_on_surface_67"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintStart_toStartOf="@+id/patientNameTextView"
+      app:layout_constraintTop_toBottomOf="@+id/facilityReassignmentView" />
+
+    <TextView
+      android:id="@+id/lastSeenTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:ellipsize="end"
+      android:maxLines="1"
+      android:textAppearance="?attr/textAppearanceBody2"
+      android:textColor="@color/color_on_surface_67"
+      app:layout_constraintBaseline_toBaselineOf="@+id/lastSeenLabelTextView"
+      app:layout_constraintStart_toEndOf="@+id/lastSeenLabelTextView"
+      tools:text="Today" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+</com.google.android.material.card.MaterialCardView>

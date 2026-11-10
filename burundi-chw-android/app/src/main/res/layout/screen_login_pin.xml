@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/loginpin_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <View
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/spacing_192"
+    android:background="?attr/colorToolbarPrimary"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent" />
+
+  <androidx.constraintlayout.widget.ConstraintLayout
+    android:id="@+id/phoneNumberContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintBottom_toTopOf="@id/pinEntryCardView">
+
+    <ImageView
+      android:id="@+id/backButton"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:clickable="true"
+      android:contentDescription="@string/loginpin_go_back"
+      android:focusable="true"
+      android:foreground="?attr/selectableItemBackgroundBorderless"
+      android:padding="@dimen/spacing_16"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toTopOf="parent"
+      app:srcCompat="@drawable/ic_arrow_back_24dp"
+      tools:ignore="UnusedAttribute" />
+
+    <TextView
+      android:id="@+id/phoneNumberTextView"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:textAppearance="?attr/textAppearanceHeadline6"
+      android:textColor="?attr/colorOnPrimary"
+      app:layout_constraintTop_toBottomOf="@id/backButton"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="1234567890" />
+
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <org.simple.clinic.security.pin.PinEntryCardView
+    android:id="@+id/pinEntryCardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/spacing_24"
+    android:layout_marginTop="@dimen/spacing_44"
+    android:layout_marginEnd="@dimen/spacing_24"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/phoneNumberContainer"
+    app:verificationMethod="serverLogin" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,96 @@
+package org.simple.clinic.medicalhistory.newentry
+
+import com.spotify.mobius.Next
+import com.spotify.mobius.Next.noChange
+import com.spotify.mobius.Update
+import org.simple.clinic.medicalhistory.Answer
+import org.simple.clinic.medicalhistory.MedicalHistoryQuestion
+import org.simple.clinic.mobius.dispatch
+import org.simple.clinic.mobius.next
+
+class NewMedicalHistoryUpdate : Update<NewMedicalHistoryModel, NewMedicalHistoryEvent, NewMedicalHistoryEffect> {
+
+  override fun update(
+      model: NewMedicalHistoryModel,
+      event: NewMedicalHistoryEvent
+  ): Next<NewMedicalHistoryModel, NewMedicalHistoryEffect> {
+    return when (event) {
+      is NewMedicalHistoryAnswerToggled -> answerToggled(model, event.question, event.answer)
+      is SaveMedicalHistoryClicked -> saveClicked(model)
+      is PatientRegistered -> next(model.patientRegistered(), TriggerSync(event.patientUuid))
+      is OngoingPatientEntryLoaded -> next(model.ongoingPatientEntryLoaded(event.ongoingNewPatientEntry))
+      is CurrentFacilityLoaded -> currentFacilityLoaded(event, model)
+      is SyncTriggered -> dispatch(OpenPatientSummaryScreen(event.registeredPatientUuid))
+      is ChangeDiagnosisNotNowClicked -> registerPatient(model)
+      is BackClicked -> dispatch(GoBack)
+      is AddOrEditBMIClicked -> dispatch(OpenBMIEntrySheet(model.bmiReading))
+      is BMIReadingAdded -> next(model.changeBMIReading(event.bmiReading))
+    }
+  }
+
+  private fun saveClicked(model: NewMedicalHistoryModel): Next<NewMedicalHistoryModel, NewMedicalHistoryEffect> {
+    val screening = model.isScreeningFeatureEnabled
+    val diabetesEnabled = model.facilityDiabetesManagementEnabled
+
+    return when {
+
+      model.showChangeDiagnosisError -> {
+        next(model.changeDiagnosisErrorShown(), ShowChangeDiagnosisErrorDialog)
+      }
+
+      screening && diabetesEnabled &&
+          !model.hasAnsweredBothDiagnosisQuestions -> {
+        dispatch(ShowDiagnosisOrReferralRequiredError)
+      }
+
+      screening && !diabetesEnabled &&
+          !model.hasAnsweredHypertensionDiagnosis -> {
+        dispatch(ShowHypertensionDiagnosisOrReferralRequiredError)
+      }
+
+      !screening && diabetesEnabled && !model.hasAnsweredBothDiagnosisQuestions -> {
+        dispatch(ShowDiagnosisRequiredError)
+      }
+
+      !screening && !diabetesEnabled && !model.hasAnsweredHypertensionDiagnosis -> {
+        dispatch(ShowHypertensionDiagnosisRequiredError)
+      }
+
+      model.showOngoingHypertensionTreatment && !model.answeredIsOnHypertensionTreatment -> {
+        dispatch(ShowOngoingHypertensionTreatmentError)
+      }
+
+      model.showOngoingDiabetesTreatment && !model.answeredIsOnDiabetesTreatment -> {
+        dispatch(ShowOngoingDiabetesTreatmentErrorDialog)
+      }
+
+      else -> registerPatient(model)
+    }
+  }
+
+  private fun registerPatient(model: NewMedicalHistoryModel): Next<NewMedicalHistoryModel, NewMedicalHistoryEffect> {
+    return if (model.registeringPatient) {
+      noChange()
+    } else {
+      next(
+          model.registeringPatient(),
+          RegisterPatient(model.ongoingMedicalHistoryEntry, model.bmiReading)
+      )
+    }
+  }
+
+  private fun currentFacilityLoaded(
+      event: CurrentFacilityLoaded,
+      model: NewMedicalHistoryModel
+  ): Next<NewMedicalHistoryModel, NewMedicalHistoryEffect> {
+    return next(model.currentFacilityLoaded(event.facility))
+  }
+
+  private fun answerToggled(
+      model: NewMedicalHistoryModel,
+      answeredQuestion: MedicalHistoryQuestion,
+      newAnswer: Answer
+  ): Next<NewMedicalHistoryModel, NewMedicalHistoryEffect> {
+    return next(model.answerChanged(answeredQuestion, newAnswer))
+  }
+}

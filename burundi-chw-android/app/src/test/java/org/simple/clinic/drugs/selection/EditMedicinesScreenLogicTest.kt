@@ -1,0 +1,270 @@
+package org.simple.clinic.drugs.selection
+
+import org.mockito.kotlin.mock
+import org.mockito.kotlin.times
+import org.mockito.kotlin.verify
+import org.mockito.kotlin.whenever
+import dagger.Lazy
+import io.reactivex.Observable
+import io.reactivex.rxkotlin.ofType
+import io.reactivex.subjects.PublishSubject
+import junitparams.JUnitParamsRunner
+import junitparams.Parameters
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.runner.RunWith
+import org.simple.clinic.drugs.AddNewPrescriptionClicked
+import org.simple.clinic.drugs.CustomPrescriptionClicked
+import org.simple.clinic.drugs.EditMedicinesEffect
+import org.simple.clinic.drugs.EditMedicinesEffectHandler
+import org.simple.clinic.drugs.EditMedicinesEvent
+import org.simple.clinic.drugs.EditMedicinesInit
+import org.simple.clinic.drugs.EditMedicinesModel
+import org.simple.clinic.drugs.EditMedicinesUiRenderer
+import org.simple.clinic.drugs.EditMedicinesUpdate
+import org.simple.clinic.drugs.EditMedicinesViewEffectHandler
+import org.simple.clinic.drugs.PrescribedDrugsDoneClicked
+import org.simple.clinic.drugs.PrescriptionRepository
+import org.simple.clinic.drugs.ProtocolDrugClicked
+import org.simple.clinic.drugs.search.DrugFrequency
+import org.simple.clinic.drugs.selection.custom.drugfrequency.country.DrugFrequencyLabel
+import org.simple.clinic.overdue.AppointmentRepository
+import org.simple.clinic.protocol.ProtocolDrugAndDosages
+import org.simple.clinic.protocol.ProtocolRepository
+import org.simple.clinic.teleconsultlog.medicinefrequency.MedicineFrequency
+import org.simple.clinic.util.scheduler.TrampolineSchedulersProvider
+import org.simple.clinic.uuid.UuidGenerator
+import org.simple.clinic.widgets.ScreenCreated
+import org.simple.clinic.widgets.UiEvent
+import org.simple.mobius.migration.MobiusTestFixture
+import org.simple.clinic.TestData
+import org.simple.clinic.util.RxErrorsRule
+import java.time.Instant
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.util.UUID
+
+@RunWith(JUnitParamsRunner::class)
+class EditMedicinesScreenLogicTest {
+
+  @get:Rule
+  val rxErrorsRule = RxErrorsRule()
+
+  private val ui = mock<EditMedicinesUi>()
+  private val uiActions = mock<EditMedicinesUiActions>()
+  private val protocolRepository = mock<ProtocolRepository>()
+  private val uuidGenerator = mock<UuidGenerator>()
+  private val prescriptionRepository = mock<PrescriptionRepository>()
+  private val patientUuid = UUID.fromString("2e9a1721-5472-4ebb-9d1a-7e707645eb7b")
+  private val protocolUuid = UUID.fromString("905a545c-1988-441b-9139-11ae00579883")
+  val loggedInUser = TestData.loggedInUser(uuid = UUID.fromString("eb1741f5-ed0e-436b-9e73-43713a4989c6"))
+  val facility = TestData.facility(
+      uuid = UUID.fromString("a10425cb-88b6-4de9-9457-c426f5e6cfbb"),
+      protocolUuid = protocolUuid
+  )
+  private val uiEvents = PublishSubject.create<UiEvent>()
+  private val appointmentRepository = mock<AppointmentRepository>()
+
+  private val drugFrequencyToLabelMap = mapOf(
+      null to DrugFrequencyLabel(label = "None"),
+      DrugFrequency.OD to DrugFrequencyLabel(label = "OD"),
+      DrugFrequency.BD to DrugFrequencyLabel(label = "BD"),
+      DrugFrequency.TDS to DrugFrequencyLabel(label = "TDS"),
+      DrugFrequency.QDS to DrugFrequencyLabel(label = "QDS")
+  )
+
+  private val medicineFrequencyToLabelMap = mapOf(
+      null to DrugFrequencyLabel(label = "None"),
+      MedicineFrequency.OD to DrugFrequencyLabel(label = "OD"),
+      MedicineFrequency.BD to DrugFrequencyLabel(label = "BD"),
+      MedicineFrequency.TDS to DrugFrequencyLabel(label = "TDS"),
+      MedicineFrequency.QDS to DrugFrequencyLabel(label = "QDS")
+  )
+
+  private lateinit var fixture: MobiusTestFixture<EditMedicinesModel, EditMedicinesEvent, EditMedicinesEffect>
+
+  @Before
+  fun setup() {
+    val editMedicinesUiRenderer = EditMedicinesUiRenderer(ui)
+    val viewEffectsConsumer = EditMedicinesViewEffectHandler(uiActions)::handle
+    val effectHandler = EditMedicinesEffectHandler(
+        schedulersProvider = TrampolineSchedulersProvider(),
+        protocolRepository = protocolRepository,
+        prescriptionRepository = prescriptionRepository,
+        facility = Lazy { facility },
+        uuidGenerator = uuidGenerator,
+        appointmentsRepository = appointmentRepository,
+        drugFrequencyToLabelMap = drugFrequencyToLabelMap,
+        viewEffectsConsumer = viewEffectsConsumer
+    )
+
+    fixture = MobiusTestFixture(
+        uiEvents.ofType(),
+        EditMedicinesModel.create(patientUuid).medicineFrequencyToLabelMapLoaded(medicineFrequencyToLabelMap),
+        EditMedicinesInit(),
+        EditMedicinesUpdate(LocalDate.of(2020, 11, 12), ZoneOffset.UTC),
+        effectHandler.build(),
+        editMedicinesUiRenderer::render
+    )
+  }
+
+  @After
+  fun tearDown() {
+    fixture.dispose()
+  }
+
+  @Test
+  fun `should correctly construct RecyclerView models from protocol drugs and prescribed drugs`() {
+    //given
+    val amlodipine5mg = TestData.protocolDrug(name = "Amlodipine", dosage = "5mg")
+    val amlodipine10mg = TestData.protocolDrug(name = "Amlodipine", dosage = "10mg")
+    val telmisartan40mg = TestData.protocolDrug(name = "Telmisartan", dosage = "40mg")
+    val telmisartan80mg = TestData.protocolDrug(name = "Telmisartan", dosage = "80mg")
+
+    whenever(protocolRepository.drugsForProtocolOrDefault(protocolUuid)).thenReturn(listOf(
+        ProtocolDrugAndDosages(amlodipine10mg.name, listOf(amlodipine5mg, amlodipine10mg)),
+        ProtocolDrugAndDosages(telmisartan40mg.name, listOf(telmisartan40mg, telmisartan80mg))
+    ))
+
+    val amlodipine10mgPrescription = TestData.prescription(
+        uuid = UUID.fromString("90e28866-90f6-48a0-add1-cf44aa43209c"),
+        name = "Amlodipine",
+        dosage = "10mg",
+        isProtocolDrug = true,
+        updatedAt = Instant.parse("2018-01-01T00:00:00Z")
+    )
+    val telmisartan9000mgPrescription = TestData.prescription(
+        uuid = UUID.fromString("ac3cfff0-2ebf-4c9c-adab-a41cc8a0bbeb"),
+        name = "Telmisartan",
+        dosage = "9000mg",
+        isProtocolDrug = false,
+        updatedAt = Instant.parse("2018-01-01T00:00:00Z")
+    )
+    val reesesPrescription = TestData.prescription(
+        uuid = UUID.fromString("34e466e2-3995-47b4-b1af-f4d7ea58d18c"),
+        name = "Reese's",
+        dosage = "5 packets",
+        isProtocolDrug = false,
+        updatedAt = Instant.parse("2018-01-01T00:00:00Z")
+    )
+    val fooPrescription = TestData.prescription(
+        uuid = UUID.fromString("68dc8060-bed4-4e1b-9891-7d77cad9639e"),
+        name = "Foo",
+        dosage = "2 pills",
+        isProtocolDrug = false,
+        updatedAt = Instant.parse("2018-01-01T00:00:00Z")
+    )
+    val barPrescription = TestData.prescription(
+        uuid = UUID.fromString("b5eb5dfa-f131-4d9f-a2d2-41d56aa109da"),
+        name = "Bar",
+        dosage = null,
+        isProtocolDrug = false,
+        updatedAt = Instant.parse("2018-01-01T00:00:00Z")
+    )
+
+    val prescriptions = listOf(
+        amlodipine10mgPrescription,
+        telmisartan9000mgPrescription,
+        reesesPrescription,
+        fooPrescription,
+        barPrescription)
+    whenever(prescriptionRepository.newestPrescriptionsForPatient(patientUuid)).thenReturn(Observable.just(prescriptions))
+
+    //when
+    setupController()
+
+    //then
+    val expectedUiModels = listOf(
+        ProtocolDrugListItem(
+            id = 0,
+            drugName = amlodipine10mg.name,
+            prescribedDrug = amlodipine10mgPrescription,
+            hasTopCorners = true,
+            medicineFrequencyToLabelMap = medicineFrequencyToLabelMap),
+        CustomPrescribedDrugListItem(prescribedDrug = telmisartan9000mgPrescription, hasTopCorners = false, medicineFrequencyToLabelMap = medicineFrequencyToLabelMap),
+        CustomPrescribedDrugListItem(prescribedDrug = reesesPrescription, hasTopCorners = false, medicineFrequencyToLabelMap = medicineFrequencyToLabelMap),
+        CustomPrescribedDrugListItem(prescribedDrug = fooPrescription, hasTopCorners = false, medicineFrequencyToLabelMap = medicineFrequencyToLabelMap),
+        CustomPrescribedDrugListItem(prescribedDrug = barPrescription, hasTopCorners = false, medicineFrequencyToLabelMap = medicineFrequencyToLabelMap),
+        ProtocolDrugListItem(
+            id = 1,
+            drugName = telmisartan40mg.name,
+            prescribedDrug = null,
+            hasTopCorners = false,
+            medicineFrequencyToLabelMap = medicineFrequencyToLabelMap))
+
+    verify(ui, times(2)).populateDrugsList(expectedUiModels)
+  }
+
+  @Test
+  fun `when new prescription button is clicked then prescription entry sheet should be shown`() {
+    //given
+    whenever(protocolRepository.drugsForProtocolOrDefault(protocolUuid)).thenReturn(emptyList())
+    whenever(prescriptionRepository.newestPrescriptionsForPatient(patientUuid)).thenReturn(Observable.empty())
+
+    //when
+    setupController()
+    uiEvents.onNext(AddNewPrescriptionClicked)
+
+    //then
+    verify(uiActions).showNewPrescriptionEntrySheet(patientUuid)
+  }
+
+  @Parameters(
+      "Amlodipine",
+      "Telimisartan",
+      "Athenlol"
+  )
+  @Test
+  fun `when a protocol drug is selected then open dosages sheet for that drug`(drugName: String) {
+    //given
+    val protocolDrug = TestData.protocolDrug(uuid = UUID.fromString("362c6a00-3ed9-4b7a-b22a-9168b736bd35"), name = drugName)
+
+    whenever(protocolRepository.drugsForProtocolOrDefault(protocolUuid)).thenReturn(emptyList())
+    whenever(prescriptionRepository.newestPrescriptionsForPatient(patientUuid)).thenReturn(Observable.empty())
+
+    //when
+    setupController()
+    uiEvents.onNext(ProtocolDrugClicked(drugName = drugName, prescription = null))
+
+    //then
+    verify(uiActions).showDosageSelectionSheet(drugName = drugName, patientUuid = patientUuid, prescribedDrugUuid = null)
+  }
+
+  @Test
+  fun `when a custom prescription is clicked then open update custom prescription screen`() {
+    //given
+    val prescribedDrug = TestData.prescription()
+    whenever(protocolRepository.drugsForProtocolOrDefault(protocolUuid)).thenReturn(emptyList())
+    whenever(prescriptionRepository.newestPrescriptionsForPatient(patientUuid)).thenReturn(Observable.empty())
+
+
+    //when
+    setupController()
+    uiEvents.onNext(CustomPrescriptionClicked(prescribedDrug))
+
+    //then
+    verify(uiActions).showUpdateCustomPrescriptionSheet(prescribedDrug)
+  }
+
+  @Test
+  fun `when done click event is received then go back to patient summary`() {
+    //given
+    whenever(protocolRepository.drugsForProtocolOrDefault(protocolUuid)).thenReturn(emptyList())
+    whenever(prescriptionRepository.newestPrescriptionsForPatient(patientUuid)).thenReturn(Observable.empty())
+
+    //when
+    setupController()
+    uiEvents.onNext(PrescribedDrugsDoneClicked)
+
+    //then
+    verify(uiActions).goBackToPatientSummary()
+  }
+
+  private fun setupController() {
+    fixture.start()
+
+    uiEvents.onNext(ScreenCreated)
+  }
+}

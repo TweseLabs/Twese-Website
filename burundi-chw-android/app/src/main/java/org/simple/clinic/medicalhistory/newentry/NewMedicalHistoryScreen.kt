@@ -1,0 +1,194 @@
+package org.simple.clinic.medicalhistory.newentry
+
+import android.content.Context
+import android.os.Bundle
+import android.os.Parcelable
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.ViewCompositionStrategy
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import kotlinx.parcelize.Parcelize
+import org.simple.clinic.R
+import org.simple.clinic.appconfig.Country
+import org.simple.clinic.di.injector
+import org.simple.clinic.feature.Features
+import org.simple.clinic.medicalhistory.SelectDiagnosisOrReferralRequiredErrorDialog
+import org.simple.clinic.medicalhistory.SelectDiagnosisRequiredErrorDialog
+import org.simple.clinic.medicalhistory.SelectHypertensionDiagnosisOrReferralRequiredErrorDialog
+import org.simple.clinic.medicalhistory.SelectHypertensionDiagnosisRequiredErrorDialog
+import org.simple.clinic.medicalhistory.SelectOngoingDiabetesTreatmentErrorDialog
+import org.simple.clinic.medicalhistory.SelectOngoingHypertensionTreatmentErrorDialog
+import org.simple.clinic.medicalhistory.ui.NewMedicalHistoryUi
+import org.simple.clinic.mobius.DisposableViewEffect
+import org.simple.clinic.navigation.v2.HandlesBack
+import org.simple.clinic.navigation.v2.Router
+import org.simple.clinic.navigation.v2.ScreenKey
+import org.simple.clinic.navigation.v2.Succeeded
+import org.simple.clinic.patientattribute.BMIReading
+import org.simple.clinic.patientattribute.entry.BMIEntrySheet
+import org.simple.clinic.summary.OpenIntention
+import org.simple.clinic.summary.PatientSummaryScreen.ScreenRequest
+import org.simple.clinic.summary.PatientSummaryScreenKey
+import org.simple.clinic.util.UtcClock
+import org.simple.clinic.util.setFragmentResultListener
+import org.simple.clinic.util.unsafeLazy
+import java.time.Instant
+import java.util.UUID
+import javax.inject.Inject
+
+class NewMedicalHistoryScreen : Fragment(), NewMedicalHistoryUiActions, HandlesBack {
+
+  @Inject
+  lateinit var router: Router
+
+  @Inject
+  lateinit var utcClock: UtcClock
+
+  @Inject
+  lateinit var activity: AppCompatActivity
+
+  @Inject
+  lateinit var effectHandlerFactory: NewMedicalHistoryEffectHandler.Factory
+
+  @Inject
+  lateinit var country: Country
+
+  @Inject
+  lateinit var features: Features
+
+  private val viewEffectHandler by unsafeLazy { NewMedicalHistoryViewEffectHandler(this) }
+
+  private val viewModel by viewModels<NewMedicalHistoryViewModel>(
+      factoryProducer = {
+        NewMedicalHistoryViewModel.factory(
+            country = country,
+            features = features,
+            effectHandlerFactory = effectHandlerFactory)
+      }
+  )
+
+  override fun onAttach(context: Context) {
+    super.onAttach(context)
+    context.injector<Injector>().inject(this)
+  }
+
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setFragmentResultListener(
+        ScreenRequest.BMIEntrySheet
+    ) { requestKey, result ->
+      if (result is Succeeded) {
+        handleScreenResult(requestKey, result)
+      }
+    }
+  }
+
+  override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    return ComposeView(requireContext()).apply {
+      setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+
+      setContent {
+        viewModel.viewEffects.DisposableViewEffect(viewEffectHandler::handle)
+
+        val model by viewModel.models.observeAsState()
+        model?.let {
+          NewMedicalHistoryUi(
+              model = it,
+              navigationIconClick = { onBackPressed() },
+              onNextClick = {
+                viewModel.dispatch(SaveMedicalHistoryClicked())
+              },
+              onAddBMIClick = {
+                viewModel.dispatch(AddOrEditBMIClicked)
+              }
+
+          ) { question, answer ->
+            viewModel.dispatch(NewMedicalHistoryAnswerToggled(question, answer))
+          }
+        }
+      }
+    }
+  }
+
+  private fun handleScreenResult(requestKey: Parcelable, result: Succeeded) {
+    when (requestKey) {
+      is ScreenRequest.BMIEntrySheet -> {
+        val bmiReading = (result.result as BMIEntrySheet.BMIAdded).bmiReading
+
+        if (bmiReading != null) {
+          viewModel.dispatch(BMIReadingAdded(bmiReading))
+        }
+      }
+    }
+  }
+
+  override fun openPatientSummaryScreen(patientUuid: UUID) {
+    router.push(PatientSummaryScreenKey(patientUuid, OpenIntention.ViewNewPatient, Instant.now(utcClock)))
+  }
+
+  override fun showOngoingHypertensionTreatmentErrorDialog() {
+    SelectOngoingHypertensionTreatmentErrorDialog.show(fragmentManager = activity.supportFragmentManager)
+  }
+
+  override fun showOngoingDiabetesTreatmentErrorDialog() {
+    SelectOngoingDiabetesTreatmentErrorDialog.show(fragmentManager = activity.supportFragmentManager)
+  }
+
+  override fun openBMIEntrySheet(bmiReading: BMIReading?) {
+    router.pushExpectingResult(ScreenRequest.BMIEntrySheet, BMIEntrySheet.Key(bmiReading))
+  }
+
+  override fun goBack() {
+    router.pop()
+  }
+
+  override fun showDiagnosisRequiredErrorDialog() {
+    SelectDiagnosisRequiredErrorDialog.show(activity.supportFragmentManager)
+  }
+
+  override fun showDiagnosisOrReferralRequiredErrorDialog() {
+    SelectDiagnosisOrReferralRequiredErrorDialog.show(activity.supportFragmentManager)
+  }
+
+  override fun showHypertensionDiagnosisRequiredErrorDialog() {
+    SelectHypertensionDiagnosisRequiredErrorDialog.show(activity.supportFragmentManager)
+  }
+
+  override fun showHypertensionDiagnosisRequiredOrReferralErrorDialog() {
+    SelectHypertensionDiagnosisOrReferralRequiredErrorDialog.show(activity.supportFragmentManager)
+  }
+
+  override fun showChangeDiagnosisErrorDialog() {
+    MaterialAlertDialogBuilder(requireContext())
+        .setTitle(getString(R.string.change_diagnosis_title))
+        .setMessage(getString(R.string.change_diagnosis_message))
+        .setPositiveButton(getString(R.string.change_diagnosis_positive), null)
+        .setNegativeButton(getString(R.string.change_diagnosis_negative)) { _, _ ->
+          viewModel.dispatch(ChangeDiagnosisNotNowClicked)
+        }
+        .show()
+  }
+
+  override fun onBackPressed(): Boolean {
+    viewModel.dispatch(BackClicked)
+    return true
+  }
+
+  interface Injector {
+    fun inject(target: NewMedicalHistoryScreen)
+  }
+
+  @Parcelize
+  data class Key(
+      override val analyticsName: String = "New Medical History Entry"
+  ) : ScreenKey() {
+    override fun instantiateFragment() = NewMedicalHistoryScreen()
+  }
+}

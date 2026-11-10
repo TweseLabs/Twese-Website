@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/contentFlipper"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_gravity="bottom">
+
+  <com.google.android.material.progressindicator.CircularProgressIndicator
+    android:id="@+id/progressIndicator"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:indeterminate="true"
+    android:visibility="gone"
+    tools:indeterminate="false"
+    tools:progress="100"
+    tools:visibility="visible" />
+
+  <org.simple.clinic.contactpatient.views.CallPatientView
+    android:id="@+id/callPatientView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:visibility="invisible"
+    tools:visibility="gone" />
+
+  <org.simple.clinic.contactpatient.views.SetAppointmentReminderView
+    android:id="@+id/setAppointmentReminderView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    android:visibility="gone" />
+
+</FrameLayout>

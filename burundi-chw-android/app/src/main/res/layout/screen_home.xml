@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/homeScreenRootLayout"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".main.TheActivity">
+
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:elevation="@dimen/elevation_toolbar">
+
+    <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:elevation="@dimen/spacing_0"
+      app:logo="@drawable/ic_icons_logo">
+
+      <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <FrameLayout
+          android:id="@+id/facilitySelectButtonContainer"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toStartOf="@id/helpButton"
+          app:layout_constraintHorizontal_chainStyle="spread_inside"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent">
+
+          <com.google.android.material.button.MaterialButton
+            android:id="@+id/facilitySelectButton"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAlignment="textStart"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="?attr/colorOnToolbarPrimary"
+            app:icon="@drawable/ic_keyboard_arrow_down_24dp"
+            app:iconGravity="textEnd"
+            app:iconPadding="@dimen/spacing_4"
+            app:iconTint="?attr/colorOnToolbarPrimary"
+            app:rippleColor="?attr/colorToolbarPrimaryVariant"
+            tools:text="CHC Facility Name" />
+
+        </FrameLayout>
+
+        <com.google.android.material.button.MaterialButton
+          android:id="@+id/helpButton"
+          style="@style/Widget.Simple.Button.Toolbar"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="end"
+          android:layout_marginEnd="@dimen/spacing_16"
+          android:text="@string/home_help"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@id/facilitySelectButtonContainer"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:ignore="UnusedAttribute" />
+
+      </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <com.google.android.material.tabs.TabLayout
+      android:id="@+id/homeTabLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:tabIndicatorHeight="@dimen/spacing_4"
+      tools:ignore="UnusedAttribute" />
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <androidx.viewpager2.widget.ViewPager2
+    android:id="@+id/viewPager"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@id/appbar" />
+
+</RelativeLayout>

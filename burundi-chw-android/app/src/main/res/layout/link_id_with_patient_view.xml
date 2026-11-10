@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:padding="@dimen/spacing_16"
+  tools:context=".summary.linkId.LinkIdWithPatientSheet"
+  tools:layout_gravity="bottom">
+
+  <TextView
+    android:id="@+id/idTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="@dimen/spacing_16"
+    android:layout_marginTop="@dimen/spacing_8"
+    android:gravity="center"
+    android:text="@string/linkidwithpatient_text"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:textColor="?attr/colorOnSurface" />
+
+  <TextView
+    android:id="@+id/idPatientNameTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/idTextView"
+    android:layout_marginHorizontal="@dimen/spacing_16"
+    android:layout_marginTop="@dimen/spacing_24"
+    android:gravity="center"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:textColor="?attr/colorOnSurface"
+    tools:text="Patient Smith" />
+
+  <LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/idPatientNameTextView"
+    android:layout_marginTop="@dimen/spacing_32"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:orientation="horizontal">
+
+    <com.google.android.material.button.MaterialButton
+      android:id="@+id/cancelButton"
+      style="?attr/materialButtonOutlinedStyle"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginEnd="@dimen/spacing_8"
+      android:layout_weight="1"
+      android:text="@string/linkidwithpatient_button_back" />
+
+    <org.simple.clinic.widgets.ProgressMaterialButton
+      android:id="@+id/addButton"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_marginStart="@dimen/spacing_8"
+      android:layout_weight="1"
+      android:text="@string/linkidwithpatient_button_yes"
+      app:buttonState="enabled" />
+
+  </LinearLayout>
+
+</RelativeLayout>

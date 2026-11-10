@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<lint>
+  <issue id="GoogleAppIndexingWarning" severity="informational" />
+  <issue id="AllowBackup" severity="informational" />
+  <issue id="AndroidGradlePluginVersion" severity="informational" />
+
+  <!-- Ignore this for now due to time constraints. Switch to static images later. -->
+  <issue id="VectorPath">
+    <ignore path="src/main/res/drawable/logo_large.xml" />
+    <ignore path="src/debug/res/drawable/logo_large.xml" />
+    <ignore path="src/staging/res/drawable/logo_large.xml" />
+    <ignore path="src/sandbox/res/drawable/logo_large.xml" />
+    <ignore path="src/main/res/drawable/ic_settings_24dp.xml" />
+    <ignore path="src/main/res/drawable/ic_whatsapp.xml" />
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_1.xml" />
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_2.xml" />
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_3.xml" />
+    <ignore path="src/main/res/drawable/illustration_overdue.xml" />
+    <ignore path="src/main/res/drawable/illustration_reports.xml" />
+    <ignore path="src/main/res/drawable/ic_whatsapp_circular.xml" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_default" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_india" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_bangladesh" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_ethiopia" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_sri_lanka" />
+    <ignore path="src/main/res/drawable/ic_syncing" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_default" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_india" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_bangladesh" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_ethiopia" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_sri_lanka" />
+    <ignore path="src/main/res/drawable/ic_no_pending_patients_illustration.xml" />
+    <ignore path="src/main/res/drawable/drug_stock_reminder_icon.xml" />
+    <ignore path="src/main/res/drawable/ic_telegram_logo.xml" />
+    <ignore path="src/main/res/drawable/ic_whatsapp_logo.xml" />
+  </issue>
+
+  <issue id="UnusedResources">
+    <ignore regexp="Widget.Simple.TextField.Layout.PatientEntry.AutoComplete" />
+    <ignore regexp="Widget.Simple.TextField.AutoComplete" />
+    <ignore regexp="ThemeOverlay.Simple.TextField.AutoComplete" />
+    <ignore regexp="overdue_no_pending_patients" />
+    <ignore regexp="overdue_pending_list_button_see_all" />
+    <ignore regexp="ic_no_pending_patients_illustration" />
+    <ignore regexp="list_item_no_pending_patients" />
+    <ignore regexp="list_item_overdue_list_section_header" />
+    <ignore regexp="list_item_overdue_pending_list_see_all_button" />
+    <ignore regexp="ic_search_history" />
+    <ignore regexp="view_overdue_search_history" />
+    <ignore regexp="thanks_green_500" />
+    <ignore regexp="thanks_green_600" />
+    <ignore regexp="thanks_teal_500" />
+    <ignore regexp="Theme.Thanks" />
+  </issue>
+
+  <issue id="ParcelCreator" severity="informational" />
+  <issue id="GradleDependency" severity="informational" />
+  <issue id="NewerVersionAvailable" severity="informational" />
+  <issue id="PluralsCandidate" severity="informational" />
+  <issue id="CannotEnableHidden" severity="informational" />
+
+  <!-- Required for itext7 -->
+  <issue id="TrustAllX509TrustManager" severity="informational" />
+
+  <!-- Currently we are using duplicate id in different layout files -->
+  <issue id="DuplicateIncludedIds" severity="informational" />
+
+  <!-- Required for Sentry  -->
+  <issue id="InvalidPackage" severity="informational" />
+
+  <issue id="MissingTranslation" severity="informational" />
+
+  <!-- We do not expect vision impaired nurses to use the app for now. -->
+  <issue id="ContentDescription" severity="ignore" />
+
+  <!-- Flags all screen event observables because they don't "return" in an obvious way -->
+  <issue id="CheckResult" severity="informational" />
+
+  <!-- No plans to utilize autofill services currently -->
+  <issue id="Autofill" severity="informational" />
+
+  <!-- Ignore Monochrome icon introduced in Android 12 -->
+  <issue id="MonochromeLauncherIcon" severity="informational" />
+
+  <!-- Ignore using Material with Material3 Library -->
+  <issue id="UsingMaterialAndMaterial3Libraries" severity="ignore" />
+
+  <!--
+  Lint complains that the tag is not supported for generated images < api 24.
+
+  This was checked on a Lollipop (21) emulator and the images seem to render fine.
+  -->
+  <issue id="VectorRaster">
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_1.xml" />
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_2.xml" />
+    <ignore path="src/main/res/drawable/ic_onboarding_intro_3.xml" />
+    <ignore path="src/main/res/drawable/illustration_location.xml" />
+    <ignore path="src/main/res/drawable/illustration_overdue.xml" />
+    <ignore path="src/main/res/drawable/illustration_reports.xml" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_default" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_india" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_bangladesh" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_ethiopia" />
+    <ignore path="src/main/res/drawable/illustration_homescreen_sri_lanka" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_default" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_india" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_bangladesh" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_ethiopia" />
+    <ignore path="src/main/res/drawable/ic_video_illustration_sri_lanka" />
+  </issue>
+
+  <!--
+  Lint complains about certain language codes being used in certain regions.
+
+  Since it's possible to use any language in any region, we don't have to fully
+  enforce it for areas we specifically added upon request.
+  -->
+  <issue id="WrongRegion">
+    <ignore path="src/main/res/values-en-rLK" />
+  </issue>
+</lint>

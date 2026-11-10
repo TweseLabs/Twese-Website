@@ -1,0 +1,405 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/patientedit_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="horizontal">
+
+  <ScrollView
+    android:id="@+id/formScrollView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_above="@+id/saveButtonFrame"
+    android:clipChildren="false"
+    android:clipToPadding="false"
+    android:paddingStart="@dimen/spacing_56"
+    android:paddingEnd="@dimen/spacing_0"
+    android:scrollbarStyle="insideOverlay"
+    android:scrollbars="vertical">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:clipChildren="false"
+      android:clipToPadding="false"
+      android:orientation="vertical"
+      android:paddingTop="@dimen/spacing_12"
+      android:paddingEnd="@dimen/spacing_16"
+      android:paddingBottom="@dimen/spacing_56"
+      tools:ignore="RtlSymmetry">
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/fullNameInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:saveEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/fullNameEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/patientedit_full_name"
+          android:imeOptions="flagNoFullscreen"
+          android:inputType="textPersonName|textCapWords"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/phoneNumberInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:saveEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/phoneNumberEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:digits="@string/latin_numeric_characters"
+          android:hint="@string/patientedit_phone_number"
+          android:imeOptions="flagNoFullscreen"
+          android:inputType="phone|textCapSentences"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:id="@+id/patientedit_age_and_dob_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/ageInputLayout"
+          style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="0.6"
+          android:saveEnabled="false">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/ageEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/patientedit_age"
+            android:imeOptions="flagNoFullscreen"
+            android:inputType="number"
+            android:maxLength="3"
+            android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+          android:id="@+id/dateOfBirthAndAgeSeparator"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_16"
+          android:layout_marginEnd="@dimen/spacing_16"
+          android:background="?android:attr/windowBackground"
+          android:text="@string/patientedit_dateofbirth_and_age_separator"
+          android:textAllCaps="true" />
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/dateOfBirthInputLayout"
+          style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_weight="1"
+          android:saveEnabled="false">
+
+          <org.simple.clinic.widgets.ageanddateofbirth.DateOfBirthEditText
+            android:id="@+id/dateOfBirthEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/patientedit_date_of_birth_unfocused"
+            android:imeOptions="flagNoFullscreen"
+            android:inputType="number"
+            android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+      </LinearLayout>
+
+      <TextView
+        android:id="@+id/alternateIdLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_24"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:visibility="gone"
+        tools:text="Health ID"
+        tools:visibility="visible" />
+
+      <LinearLayout
+        android:id="@+id/alternateIdContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:orientation="vertical"
+        android:visibility="gone"
+        tools:visibility="visible" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/addNHIDButton"
+        style="?attr/borderlessButtonDenseStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:paddingStart="@dimen/spacing_2"
+        android:text="@string/patientedit_add_button"
+        android:textAlignment="viewStart"
+        android:textAppearance="?attr/textAppearanceButton"
+        android:visibility="gone"
+        app:icon="@drawable/ic_add_circle_outline_24px"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/spacing_8" />
+
+      <TextView
+        android:id="@+id/bpPassportsLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_24"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:text="@string/patientedit_bp_passports_label" />
+
+      <LinearLayout
+        android:id="@+id/bpPassportsContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:visibility="gone"
+        tools:visibility="visible"
+        android:orientation="vertical" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/addBpPassportButton"
+        style="?attr/borderlessButtonDenseStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_8"
+        android:paddingStart="@dimen/spacing_2"
+        android:text="@string/patientedit_add_button"
+        android:textAlignment="viewStart"
+        android:textAppearance="?attr/textAppearanceButton"
+        app:icon="@drawable/ic_add_circle_outline_24px"
+        app:iconGravity="start"
+        app:iconPadding="@dimen/spacing_8" />
+
+      <RadioGroup
+        android:id="@+id/genderRadioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:orientation="horizontal">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+          android:id="@+id/femaleRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="-2dp"
+          android:text="@string/patientedit_gender_female"
+          android:textAppearance="?attr/textAppearanceBody2"
+          android:textColor="@color/editpatient_radio_button" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+          android:id="@+id/maleRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_16"
+          android:text="@string/patientedit_gender_male"
+          android:textAppearance="?attr/textAppearanceBody2"
+          android:textColor="@color/editpatient_radio_button" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+          android:id="@+id/transgenderRadioButton"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_16"
+          android:ellipsize="end"
+          android:maxLines="1"
+          android:text="@string/patientedit_gender_transgender"
+          android:textAppearance="?attr/textAppearanceBody2"
+          android:textColor="@color/editpatient_radio_button" />
+
+      </RadioGroup>
+
+      <TextView
+        android:id="@+id/patientedit_gender_validation_error"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_4"
+        android:layout_marginTop="@dimen/spacing_4"
+        android:text="@string/patientedit_error_empty_gender"
+        android:textAppearance="?attr/textAppearanceBody2"
+        android:textColor="?attr/colorError"
+        android:visibility="gone" />
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/alternativeIdInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:saveEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/alternativeIdInputEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/patientedit_bangladesh_national_id"
+          android:imeOptions="flagNoFullscreen"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/streetAddressInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:saveEnabled="false">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/streetAddressEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/patientedit_street_address"
+          android:imeOptions="flagNoFullscreen"
+          android:inputType="textPostalAddress|textCapSentences"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/colonyOrVillageInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry.AutoComplete"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:saveEnabled="false">
+
+        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+          android:id="@+id/colonyOrVillageEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/patientedit_colony_or_village"
+          android:imeOptions="flagNoFullscreen"
+          android:inputType="textPostalAddress|textCapSentences"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/zoneInputLayout"
+        style="@style/Widget.Simple.TextField.Layout.PatientEntry"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:saveEnabled="false"
+        android:visibility="gone">
+
+        <com.google.android.material.textfield.TextInputEditText
+          android:id="@+id/zoneEditText"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:hint="@string/patientedit_zone"
+          android:imeOptions="flagNoFullscreen"
+          android:inputType="textPostalAddress|textCapSentences"
+          android:saveEnabled="false" />
+
+      </com.google.android.material.textfield.TextInputLayout>
+
+      <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:baselineAligned="false"
+        android:orientation="horizontal">
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/districtInputLayout"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginEnd="@dimen/spacing_4"
+          android:layout_weight="1"
+          android:saveEnabled="false">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/districtEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/patientedit_district"
+            android:imeOptions="flagNoFullscreen"
+            android:inputType="textPostalAddress|textCapSentences"
+            android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+          android:id="@+id/stateInputLayout"
+          android:layout_width="0dp"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="@dimen/spacing_4"
+          android:layout_weight="1"
+          android:saveEnabled="false">
+
+          <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/stateEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/patientedit_state"
+            android:imeOptions="flagNoFullscreen"
+            android:inputType="textPostalAddress|textCapSentences"
+            android:saveEnabled="false" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+      </LinearLayout>
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/deletePatient"
+        style="@style/Widget.Simple.Button.Red2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:text="@string/patientedit_delete_patient" />
+
+    </LinearLayout>
+
+  </ScrollView>
+
+  <ImageButton
+    android:id="@+id/backButton"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackgroundBorderless"
+    android:padding="@dimen/spacing_16"
+    android:tintMode="src_in"
+    app:srcCompat="@drawable/ic_close_24dp"
+    app:tint="@color/color_on_surface_67"
+    tools:ignore="ContentDescription" />
+  
+  <FrameLayout
+    android:id="@+id/saveButtonFrame"
+    style="@style/Widget.Simple.Button.Frame"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true">
+
+    <org.simple.clinic.widgets.ProgressMaterialButton
+      android:id="@+id/saveButton"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/patientedit_save_patient"
+      app:buttonState="in_progress" />
+
+  </FrameLayout>
+
+</RelativeLayout>

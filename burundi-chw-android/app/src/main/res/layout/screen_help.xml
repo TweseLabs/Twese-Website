@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical">
+
+  <com.google.android.material.appbar.AppBarLayout
+    android:id="@+id/appbar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/toolbar"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:navigationIcon="@drawable/ic_arrow_back_24dp"
+      app:title="@string/help_title" />
+
+  </com.google.android.material.appbar.AppBarLayout>
+
+  <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <WebView
+      android:id="@+id/webView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent" />
+
+    <LinearLayout
+      android:id="@+id/noContentView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:gravity="center"
+      android:orientation="vertical">
+
+      <TextView
+        android:id="@+id/errorMessageTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/help_no_connection"
+        android:textAppearance="?attr/textAppearanceHeadline6"
+        android:textColor="@color/color_on_surface_67" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/tryAgainButton"
+        style="?attr/materialButtonOutlinedStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_40"
+        android:layout_marginTop="@dimen/spacing_24"
+        android:layout_marginEnd="@dimen/spacing_40"
+        android:text="@string/help_try_again" />
+
+    </LinearLayout>
+
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+      android:id="@+id/progressBar"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center"
+      android:indeterminate="true"
+      android:visibility="gone"
+      tools:visibility="visible" />
+
+  </FrameLayout>
+
+</LinearLayout>

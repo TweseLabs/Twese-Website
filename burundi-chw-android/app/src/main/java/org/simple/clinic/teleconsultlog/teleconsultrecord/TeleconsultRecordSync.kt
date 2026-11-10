@@ -1,0 +1,80 @@
+package org.simple.clinic.teleconsultlog.teleconsultrecord
+
+import org.simple.clinic.sync.ModelSync
+import org.simple.clinic.sync.SyncConfig
+import org.simple.clinic.sync.SyncConfigType
+import org.simple.clinic.sync.SyncConfigType.Type.Frequent
+import org.simple.clinic.sync.SyncCoordinator
+import org.simple.clinic.util.read
+import javax.inject.Inject
+
+class TeleconsultRecordSync @Inject constructor(
+    private val teleconsultRecordApi: TeleconsultRecordApi,
+    private val teleconsultRecordRepository: TeleconsultRecordRepository,
+    private val syncCoordinator: SyncCoordinator,
+    @SyncConfigType(Frequent) private val config: SyncConfig
+) : ModelSync {
+
+  override val name: String = "TeleconsultRecord"
+
+  override val requiresSyncApprovedUser: Boolean = true
+
+  override fun push() {
+    syncCoordinator.push(
+        teleconsultRecordRepository,
+        config.pushBatchSize
+    ) { teleconsultRecordApi.push(toRequest(it)).execute().read()!! }
+  }
+
+  override fun pull() {
+    /* Nothing to do here */
+  }
+
+  private fun toRequest(teleconsultRecord: List<TeleconsultRecord>): TeleconsultPushRequest {
+    val payloads = teleconsultRecord.map { recordToPayload(it) }
+    return TeleconsultPushRequest(payloads)
+  }
+
+  private fun recordToPayload(teleconsultRecord: TeleconsultRecord): TeleconsultRecordPayload {
+    val teleconsultRequestInfoPayload = getTeleconsultRequestInfoPayload(teleconsultRecord.teleconsultRequestInfo)
+    val teleconsultRecordInfoPayload = getTeleconsultRecordInfoPayload(teleconsultRecord.teleconsultRecordInfo)
+
+    return TeleconsultRecordPayload(
+        id = teleconsultRecord.id,
+        patientId = teleconsultRecord.patientId,
+        medicalOfficerId = teleconsultRecord.medicalOfficerId,
+        teleconsultRequestInfo = teleconsultRequestInfoPayload,
+        teleconsultRecordInfo = teleconsultRecordInfoPayload,
+        createdAt = teleconsultRecord.timestamp.createdAt,
+        updatedAt = teleconsultRecord.timestamp.updatedAt,
+        deletedAt = teleconsultRecord.timestamp.deletedAt
+    )
+  }
+
+  private fun getTeleconsultRecordInfoPayload(teleconsultRecordInfo: TeleconsultRecordInfo?): TeleconsultRecordInfoPayload? {
+    return if (teleconsultRecordInfo != null) {
+      TeleconsultRecordInfoPayload(
+          recordedAt = teleconsultRecordInfo.recordedAt,
+          teleconsultationType = teleconsultRecordInfo.teleconsultationType,
+          patientTookMedicines = teleconsultRecordInfo.patientTookMedicines,
+          patientConsented = teleconsultRecordInfo.patientConsented,
+          medicalOfficerNumber = teleconsultRecordInfo.medicalOfficerNumber.orEmpty(),
+      )
+    } else {
+      null
+    }
+  }
+
+  private fun getTeleconsultRequestInfoPayload(teleconsultRequestInfo: TeleconsultRequestInfo?): TeleconsultRequestInfoPayload? {
+    return if (teleconsultRequestInfo != null) {
+      TeleconsultRequestInfoPayload(
+          requesterId = teleconsultRequestInfo.requesterId,
+          facilityId = teleconsultRequestInfo.facilityId,
+          requestedAt = teleconsultRequestInfo.requestedAt,
+          requesterCompletionStatus = teleconsultRequestInfo.requesterCompletionStatus
+      )
+    } else {
+      null
+    }
+  }
+}

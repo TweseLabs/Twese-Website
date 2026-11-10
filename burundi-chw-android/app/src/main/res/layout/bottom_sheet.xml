@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:fitsSystemWindows="true"
+  android:orientation="vertical"
+  tools:ignore="MergeRootFrame">
+  <!-- MergeRootFrame lint is suppressed because android:fitsSystemWindows is
+       ignored when this root layout is merged with its parent. -->
+
+  <View
+    android:id="@+id/bottomsheet_background"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/scrimBackground" />
+
+  <com.google.android.material.card.MaterialCardView
+    android:id="@+id/bottomsheet_content_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="bottom"
+    app:cardElevation="20dp"
+    app:rippleColor="@android:color/transparent"
+    app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Simple.BottomSheet" />
+
+</FrameLayout>

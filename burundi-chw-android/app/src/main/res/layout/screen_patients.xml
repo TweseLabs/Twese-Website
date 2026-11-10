@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/patients_root"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent">
+
+  <androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:focusableInTouchMode="true"
+      android:orientation="vertical">
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/searchPatientsButton"
+        style="@style/Widget.Simple.Button.OutlinedButton.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_16"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:text="@string/home_search_patient_name_phone"
+        android:textAppearance="?attr/textAppearanceBody0"
+        app:backgroundTint="?attr/colorSurface"
+        app:icon="@drawable/ic_search_24dp"
+        tools:ignore="MissingPrefix,RtlSymmetry" />
+
+      <com.google.android.material.button.MaterialButton
+        android:id="@+id/scanSimpleCardButton"
+        style="@style/Widget.Simple.Button.Big"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/spacing_16"
+        android:layout_marginTop="@dimen/spacing_16"
+        android:layout_marginEnd="@dimen/spacing_16"
+        android:text="@string/patients_scan_simple_card"
+        app:icon="@drawable/patient_id_card" />
+
+      <org.simple.clinic.widgets.ViewFlipperWithLayoutEditorPreview
+        android:id="@+id/illustrationLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:measureAllChildren="false"
+        android:visibility="invisible"
+        app:debug_displayedChild="1">
+
+        <ImageView
+          android:id="@+id/homeIllustration"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/spacing_16"
+          android:adjustViewBounds="true"
+          android:scaleType="fitXY"
+          app:srcCompat="@drawable/illustration_homescreen_default"
+          tools:ignore="ContentDescription" />
+
+        <include
+          android:id="@+id/appUpdateCardLayout"
+          layout="@layout/app_update_card" />
+
+        <include
+          android:id="@+id/drugStockReminderCardLayout"
+          layout="@layout/drug_stock_reminder_card" />
+
+      </org.simple.clinic.widgets.ViewFlipperWithLayoutEditorPreview>
+
+      <LinearLayout
+        android:id="@+id/recentPatientsHeaderContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:animateLayoutChanges="true"
+        android:background="?android:attr/colorBackground"
+        android:orientation="vertical"
+        android:paddingStart="@dimen/spacing_8"
+        android:paddingEnd="@dimen/spacing_8">
+
+        <org.simple.clinic.sync.indicator.SyncIndicatorView
+          android:id="@+id/syncIndicator"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:background="?attr/selectableItemBackground" />
+
+        <org.simple.clinic.home.patients.links.PatientsTabLinkView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content" />
+
+        <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginTop="2dp"
+          android:layout_marginBottom="2dp"
+          android:padding="@dimen/spacing_8"
+          android:text="@string/patients_recentpatients_title"
+          android:textAllCaps="true"
+          android:textAppearance="?attr/textAppearanceTag"
+          android:textColor="@color/color_on_surface_67" />
+
+      </LinearLayout>
+
+      <org.simple.clinic.recentpatientsview.RecentPatientsView
+        android:id="@+id/recentPatients"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?android:attr/colorBackground"
+        android:paddingTop="@dimen/spacing_8"
+        android:paddingBottom="@dimen/spacing_16" />
+
+    </LinearLayout>
+
+  </androidx.core.widget.NestedScrollView>
+
+  <org.simple.clinic.widgets.ViewFlipperWithLayoutEditorPreview
+    android:id="@+id/userStatusViewflipper"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="0dp"
+    app:debug_displayedChild="2">
+
+    <View
+      android:id="@+id/userStatusHiddenView"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content" />
+
+    <include
+      android:id="@+id/userStatusAwaitingApproval"
+      layout="@layout/patients_user_status_awaitingapproval" />
+
+    <include
+      android:id="@+id/userStatusApproved"
+      layout="@layout/patients_user_status_approved" />
+
+    <include
+      android:id="@+id/userAwaitingSmsVerification"
+      layout="@layout/patients_user_status_awaitingsmsverification" />
+
+  </org.simple.clinic.widgets.ViewFlipperWithLayoutEditorPreview>
+
+</RelativeLayout>

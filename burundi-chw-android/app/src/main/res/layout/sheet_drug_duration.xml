@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:paddingTop="@dimen/spacing_24"
+  android:paddingBottom="@dimen/spacing_32"
+  tools:background="?attr/colorSurface">
+
+  <TextView
+    android:id="@+id/drugDurationTitleTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:textAlignment="center"
+    android:textAppearance="?attr/textAppearanceHeadline6"
+    android:textColor="?attr/colorOnSurface"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tools:text="Amlodipine 10 mg" />
+
+
+  <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/drugDurationTextFieldLayout"
+    style="@style/Widget.Simple.TextField.Layout.Large.MeasurementInput"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_chainStyle="packed"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/drugDurationTitleTextView">
+
+    <com.google.android.material.textfield.TextInputEditText
+      android:id="@+id/drugDurationEditText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="@dimen/spacing_16"
+      android:imeOptions="actionDone"
+      android:importantForAutofill="no"
+      android:inputType="number"
+      tools:ignore="UnusedAttribute">
+
+      <requestFocus />
+
+    </com.google.android.material.textfield.TextInputEditText>
+
+  </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+    android:id="@+id/drugDurationLabelTextView"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:labelFor="@id/drugDurationEditText"
+    android:text="@string/drugDurationLabel"
+    android:textAppearance="?attr/textAppearanceBody2"
+    android:textColor="?attr/colorPrimary"
+    app:layout_constraintEnd_toEndOf="@+id/drugDurationTextFieldLayout"
+    app:layout_constraintStart_toStartOf="@+id/drugDurationTextFieldLayout"
+    app:layout_constraintTop_toBottomOf="@+id/drugDurationTextFieldLayout" />
+
+  <TextView
+    android:id="@+id/drugDurationErrorTextView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/spacing_8"
+    android:textAlignment="center"
+    android:textAppearance="?attr/textAppearanceBody2"
+    android:textColor="?attr/colorError"
+    android:visibility="gone"
+    app:layout_constraintTop_toBottomOf="@id/drugDurationLabelTextView"
+    tools:text="@string/drug_duration_empty_error" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

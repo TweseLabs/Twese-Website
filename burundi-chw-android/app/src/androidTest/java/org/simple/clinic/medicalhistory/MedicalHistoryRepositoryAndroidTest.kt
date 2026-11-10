@@ -1,0 +1,353 @@
+package org.simple.clinic.medicalhistory
+
+import com.google.common.truth.Truth.assertThat
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
+import org.junit.rules.RuleChain
+import org.simple.clinic.TestClinicApp
+import org.simple.clinic.TestData
+import org.simple.clinic.medicalhistory.Answer.No
+import org.simple.clinic.medicalhistory.Answer.Suspected
+import org.simple.clinic.medicalhistory.Answer.Unanswered
+import org.simple.clinic.medicalhistory.Answer.Yes
+import org.simple.clinic.patient.SyncStatus
+import org.simple.clinic.rules.LocalAuthenticationRule
+import org.simple.clinic.rules.SaveDatabaseRule
+import org.simple.clinic.util.Rules
+import org.simple.clinic.util.UtcClock
+import java.time.Instant
+import java.time.temporal.ChronoUnit.DAYS
+import java.util.UUID
+import javax.inject.Inject
+
+class MedicalHistoryRepositoryAndroidTest {
+
+  @Inject
+  lateinit var repository: MedicalHistoryRepository
+
+  @Inject
+  lateinit var dao: MedicalHistory.RoomDao
+
+  @Inject
+  lateinit var testData: TestData
+
+  @Inject
+  lateinit var clock: UtcClock
+
+  @get:Rule
+  val rules: RuleChain = Rules
+      .global()
+      .around(LocalAuthenticationRule())
+      .around(SaveDatabaseRule())
+
+  @Before
+  fun setup() {
+    TestClinicApp.appComponent().inject(this)
+  }
+
+  @Test
+  fun when_creating_new_medical_history_from_ongoing_entry_then_the_medical_history_should_be_saved() {
+    val patientUuid = UUID.fromString("9a39d73b-6568-4359-90a7-1553d8cfa05c")
+    val historyEntry = OngoingMedicalHistoryEntry(
+        hasHadHeartAttack = Yes,
+        hasHadStroke = Yes,
+        hasHadKidneyDisease = Yes,
+        hasDiabetes = No,
+        isSmoking = No,
+        isUsingSmokelessTobacco = No,
+    )
+
+    repository.save(
+        uuid = UUID.fromString("d33a3dfc-3da9-43a9-a543-095232c55597"),
+        patientUuid = patientUuid,
+        historyEntry = historyEntry
+    ).blockingAwait()
+
+    val savedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(savedHistory.hasHadHeartAttack).isEqualTo(Yes)
+    assertThat(savedHistory.hasHadStroke).isEqualTo(Yes)
+    assertThat(savedHistory.hasHadKidneyDisease).isEqualTo(Yes)
+    assertThat(savedHistory.diagnosedWithDiabetes).isEqualTo(No)
+    assertThat(savedHistory.isSmoking).isEqualTo(No)
+    assertThat(savedHistory.syncStatus).isEqualTo(SyncStatus.PENDING)
+  }
+
+  @Test
+  fun when_creating_new_medical_history_then_the_medical_history_should_be_saved() {
+    val patientUuid = UUID.fromString("89d8e57c-e895-4b65-b5c8-f69886d70f2e")
+    val instant = Instant.now(clock)
+    val historyToSave = testData.medicalHistory(patientUuid = patientUuid, diagnosedWithHypertension = Yes, hasDiabetes = Yes)
+
+    repository.save(historyToSave, instant)
+
+    val savedHistory = dao.historyForPatientImmediate(patientUuid)!!
+    val expectedSavedHistory = historyToSave.copy(syncStatus = SyncStatus.PENDING, updatedAt = instant, hypertensionDiagnosedAt = instant, diabetesDiagnosedAt = instant)
+
+    assertThat(savedHistory).isEqualTo(expectedSavedHistory)
+  }
+
+  @Test
+  fun when_updating_an_existing_medical_history_then_it_should_be_marked_as_pending_sync() {
+    val patientUuid = UUID.fromString("93319278-e5bd-4adc-9627-7328c21a0bd3")
+    val now = Instant.now(clock)
+    val oldHistory = testData.medicalHistory(
+        patientUuid = patientUuid,
+        hasHadHeartAttack = No,
+        syncStatus = SyncStatus.DONE,
+        updatedAt = now.minus(10, DAYS))
+
+    repository.save(listOf(oldHistory))
+
+    val newHistory = oldHistory.copy(hasHadHeartAttack = Yes)
+    repository.save(newHistory, now)
+
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.hasHadHeartAttack).isEqualTo(Yes)
+    assertThat(updatedHistory.syncStatus).isEqualTo(SyncStatus.PENDING)
+    assertThat(updatedHistory.updatedAt).isEqualTo(now)
+  }
+
+  @Test
+  fun when_medical_history_is_not_present_for_a_patient_then_an_empty_value_should_be_returned() {
+    val emptyHistoryUuid = UUID.fromString("b025b4e9-3907-4168-abd4-ab117739756d")
+    val emptyHistory = repository.historyForPatientOrDefault(
+        defaultHistoryUuid = emptyHistoryUuid,
+        patientUuid = UUID.fromString("2a0ae00f-bf18-4710-9a33-df4be6e1846b")
+    ).blockingFirst()
+
+    assertThat(emptyHistory.uuid).isEqualTo(emptyHistoryUuid)
+    assertThat(emptyHistory.hasHadHeartAttack).isEqualTo(Unanswered)
+    assertThat(emptyHistory.hasHadStroke).isEqualTo(Unanswered)
+    assertThat(emptyHistory.hasHadKidneyDisease).isEqualTo(Unanswered)
+    assertThat(emptyHistory.diagnosedWithDiabetes).isEqualTo(Unanswered)
+    assertThat(emptyHistory.isSmoking).isEqualTo(Unanswered)
+    assertThat(emptyHistory.syncStatus).isEqualTo(SyncStatus.DONE)
+  }
+
+  @Test
+  fun when_multiple_medical_histories_are_present_for_a_patient_then_only_the_last_edited_one_should_be_returned() {
+    val patientUuid = UUID.fromString("780a880d-0b00-441e-ad84-fe8b3d973ffd")
+
+    val olderHistory = testData.medicalHistory(
+        patientUuid = patientUuid,
+        createdAt = Instant.now(clock).minusMillis(100),
+        updatedAt = Instant.now(clock).minusMillis(100))
+
+    val newerHistory = testData.medicalHistory(
+        patientUuid = patientUuid,
+        createdAt = Instant.now(clock).minusMillis(100),
+        updatedAt = Instant.now(clock))
+
+    repository.save(olderHistory, olderHistory.updatedAt)
+    repository.save(newerHistory, newerHistory.updatedAt)
+
+    val foundHistory = dao.historyForPatientImmediate(patientUuid)!!
+    assertThat(foundHistory.uuid).isEqualTo(newerHistory.uuid)
+  }
+
+  @Test
+  fun when_multiple_medical_histories_are_present_for_a_patient_then_only_the_last_edited_one_should_be_returned_immediately() {
+    val patientUuid = UUID.fromString("44801303-cea8-40a2-a4c5-3e410ab8fabb")
+
+    val olderHistory = testData.medicalHistory(
+        patientUuid = patientUuid,
+        createdAt = Instant.now(clock).minusMillis(100),
+        updatedAt = Instant.now(clock).minusMillis(100))
+
+    val newerHistory = testData.medicalHistory(
+        patientUuid = patientUuid,
+        createdAt = Instant.now(clock).minusMillis(100),
+        updatedAt = Instant.now(clock))
+
+    dao.saveHistories(listOf(olderHistory, newerHistory))
+
+    val foundHistory = dao.historyForPatientImmediate(patientUuid)!!
+    assertThat(foundHistory).isEqualTo(newerHistory)
+  }
+
+  @Test
+  fun when_no_medical_history_is_present_for_a_patient_then_return_detail_medical_history() {
+    val emptyHistoryUuid = UUID.fromString("3f7b9090-daa9-4406-834f-563219fec5a3")
+    val patientUuid = UUID.fromString("694d1c32-048f-4d43-93d4-0cd51be686b0")
+    val emptyHistory = repository.historyForPatientOrDefaultImmediate(
+        defaultHistoryUuid = emptyHistoryUuid,
+        patientUuid = patientUuid
+    )
+
+    assertThat(emptyHistory.uuid).isEqualTo(emptyHistoryUuid)
+    assertThat(emptyHistory.hasHadHeartAttack).isEqualTo(Unanswered)
+    assertThat(emptyHistory.hasHadStroke).isEqualTo(Unanswered)
+    assertThat(emptyHistory.hasHadKidneyDisease).isEqualTo(Unanswered)
+    assertThat(emptyHistory.diagnosedWithHypertension).isEqualTo(Unanswered)
+    assertThat(emptyHistory.diagnosedWithDiabetes).isEqualTo(Unanswered)
+    assertThat(emptyHistory.isSmoking).isEqualTo(Unanswered)
+    assertThat(emptyHistory.syncStatus).isEqualTo(SyncStatus.DONE)
+  }
+
+  @Test
+  fun when_hypertension_is_diagnosed_with_yes_or_no_then_set_timestamp() {
+    //given
+    val now = Instant.now(clock)
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        diagnosedWithHypertension = Yes,
+    )
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(now)
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Yes)
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(null)
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(Unanswered)
+  }
+
+  @Test
+  fun when_diabetes_is_diagnosed_with_yes_or_no_then_set_timestamp() {
+    //given
+    val now = Instant.now(clock)
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        hasDiabetes = No,
+    )
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(now)
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(No)
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(null)
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Unanswered)
+  }
+
+  @Test
+  fun when_diabetes_or_hypertension_is_marked_suspected_then_do_not_set_timestamp() {
+    //given
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        hasDiabetes = Suspected,
+        diagnosedWithHypertension = Suspected
+    )
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(null)
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(Suspected)
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(null)
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Suspected)
+  }
+
+  @Test
+  fun when_updating_an_existing_medical_history_diagnosis_question_with_yes_or_no_then_it_should_update_htn_timestamp() {
+    //given
+    val now = Instant.now(clock)
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        hasDiabetes = Unanswered,
+        diagnosedWithHypertension = Unanswered
+    )
+
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    val existingHistory = dao.historyForPatientImmediate(patientUuid)!!
+    val newHistory = existingHistory.copy(diagnosedWithHypertension = Yes)
+    repository.save(newHistory, now.plus(10, DAYS))
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Yes)
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(now.plus(10, DAYS))
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(Unanswered)
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(null)
+  }
+
+  @Test
+  fun when_updating_an_existing_medical_history_diagnosis_question_with_yes_or_no_then_it_should_not_update_htn_timestamp_if_already_exist() {
+    //given
+    val now = Instant.now(clock)
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        hasDiabetes = Yes,
+        diagnosedWithHypertension = No
+    )
+
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    val existingHistory = dao.historyForPatientImmediate(patientUuid)!!
+    val newHistory = existingHistory.copy(diagnosedWithHypertension = Yes, diagnosedWithDiabetes = Yes)
+    repository.save(newHistory, now.plus(10, DAYS))
+
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Yes)
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(now)
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(Yes)
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(now)
+  }
+
+  @Test
+  fun when_updating_an_existing_medical_history_diagnosis_question_with_suspected_then_it_should_not_update_htn_timestamp() {
+    //given
+    val now = Instant.now(clock)
+    val patientUuid = UUID.fromString("123e4567-e89b-12d3-a456-426614174000")
+    val entry = OngoingMedicalHistoryEntry(
+        hasDiabetes = Unanswered,
+        diagnosedWithHypertension = Unanswered
+    )
+
+    //when
+    repository.save(
+        uuid = UUID.fromString("223e4567-e89b-12d3-a456-426614174000"),
+        patientUuid = patientUuid,
+        historyEntry = entry
+    ).blockingAwait()
+
+    val existingHistory = dao.historyForPatientImmediate(patientUuid)!!
+    val newHistory = existingHistory.copy(diagnosedWithHypertension = Suspected, diagnosedWithDiabetes = Suspected)
+    repository.save(newHistory, now.plus(10, DAYS))
+
+
+    //then
+    val updatedHistory = dao.historyForPatientImmediate(patientUuid)!!
+
+    assertThat(updatedHistory.diagnosedWithHypertension).isEqualTo(Suspected)
+    assertThat(updatedHistory.hypertensionDiagnosedAt).isEqualTo(null)
+    assertThat(updatedHistory.diagnosedWithDiabetes).isEqualTo(Suspected)
+    assertThat(updatedHistory.diabetesDiagnosedAt).isEqualTo(null)
+  }
+}

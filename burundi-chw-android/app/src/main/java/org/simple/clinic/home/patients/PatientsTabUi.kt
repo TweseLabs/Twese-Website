@@ -1,0 +1,13 @@
+package org.simple.clinic.home.patients
+
+interface PatientsTabUi {
+  fun hideSyncIndicator()
+  fun showSyncIndicator()
+  fun showIllustration()
+  fun showUserStatusAsPendingVerification()
+  fun hideUserAccountStatus()
+  fun showUserStatusAsWaitingForApproval()
+  fun renderAppUpdateReason(appStalenessInMonths: Int)
+  fun showCriticalAppUpdateCard()
+  fun showDrugStockReminderCard()
+}

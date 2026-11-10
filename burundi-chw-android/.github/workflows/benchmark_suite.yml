@@ -1,0 +1,46 @@
+name: Performance Regression Test Suite
+
+on:
+  push:
+    branches:
+      - master
+  workflow_dispatch:
+
+concurrency:
+  group: benchmark-suite
+  cancel-in-progress: true
+
+jobs:
+  benchmark_suite:
+    runs-on: [ ubuntu-latest ]
+    steps:
+      - name: Enable KVM group perms
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Checkout Android source
+        uses: actions/checkout@v7
+
+      - name: Setup JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'zulu'
+          java-version: 17
+          cache: 'gradle'
+
+      - name: Benchmark tests
+        id: run-benchmark-tests
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: 30
+          arch: x86_64
+          disable-animations: true
+          disk-size: 8G
+          script: |
+            adb root
+            ./gradlew --no-configuration-cache -PmanifestEndpoint=https://api-sandbox.simple.org/api/ installQaDebug installQaDebugAndroidTest lockClocks
+            adb shell am instrument -w -e filter org.simple.clinic.benchmark.SelectBenchmarkTests -e benchmark_app_performance true -e sentry_dsn ${{ secrets.SENTRY_DSN }} org.simple.clinic.qa.debug.test/org.simple.clinic.AndroidTestJUnitRunner
+            adb uninstall org.simple.clinic.qa.debug
+            adb uninstall org.simple.clinic.qa.debug.test

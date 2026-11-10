@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:id="@+id/patients_user_status_awaitingsmsverification"
+  android:layout_width="match_parent"
+  android:layout_height="wrap_content"
+  android:layout_gravity="bottom"
+  android:background="?attr/colorSurface"
+  android:paddingStart="@dimen/spacing_16"
+  android:paddingTop="@dimen/spacing_16"
+  android:paddingEnd="@dimen/spacing_8"
+  android:paddingBottom="@dimen/spacing_16"
+  android:theme="@style/ThemeOverlay.Simple.UserApprovalSnackbar"
+  tools:ignore="Overdraw">
+
+  <TextView
+    android:id="@+id/awaitingVerificationTitle"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_toStartOf="@+id/enterCodeButton"
+    android:text="@string/patients_awaiting_sms_verification_title"
+    android:textAppearance="?attr/textAppearanceSubtitle1"
+    android:textColor="?attr/colorOnSurface" />
+
+  <TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/awaitingVerificationTitle"
+    android:layout_alignStart="@+id/awaitingVerificationTitle"
+    android:layout_marginTop="@dimen/spacing_4"
+    android:layout_toStartOf="@+id/enterCodeButton"
+    android:text="@string/patients_awaiting_sms_verification_message"
+    android:textAppearance="?attr/textAppearanceBody2"
+    android:textColor="@color/snackbar_subtitle" />
+
+  <com.google.android.material.button.MaterialButton
+    android:id="@+id/enterCodeButton"
+    style="?attr/borderlessButtonStyle"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentEnd="true"
+    android:layout_centerVertical="true"
+    android:text="@string/patients_enter_code"
+    android:theme="@style/ThemeOverlay.Simple.UserApprovalSnackbar.Action" />
+
+</RelativeLayout>
